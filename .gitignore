@@ -1,3 +1,7 @@
 .env
 human/
 .claude/settings.local.json
+00_Note/**/*.md
+!00_Note/README.md
+01_Work/**/*.md
+!01_Work/README.md
