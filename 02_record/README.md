@@ -9,3 +9,6 @@ Reports from research and analysis.
 
 ## Decision
 Product or architecture decision records (ADR).
+
+## Compliance
+Privacy, legal, and regulatory documents (e.g. Privacy by Design, data flow descriptions, vendor data processing records).
