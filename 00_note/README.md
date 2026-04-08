@@ -1,6 +1,6 @@
 # Note
 
-Raw inputs. Files here serve as source material for documents in `01_Work`.
+Raw inputs. Files here serve as source material for documents in `01_work`.
 
 - thoughts
 - templates
