@@ -1,3 +1,4 @@
 .env
 human/
 .claude/settings.local.json
+00_note/personal/
