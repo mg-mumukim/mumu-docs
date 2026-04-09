@@ -41,8 +41,11 @@ The argument can be:
 
 ### 5. Graduation (only when human says "approve" or "finalize")
 - Move the approved version to `02_record/`, stripping the version suffix.
-- If the draft is about refinement of exsisting file, overwrite it.
+- If the draft is about refinement of existing file, overwrite it.
 - Do NOT graduate without explicit human approval.
+- After moving, create a git commit:
+  - Stage the moved file in `02_record/` and the deletion from `01_work/`.
+  - Commit message: `Record <topic> (graduated from <source filename>)`
 
 ## Rules
 - Never modify files in `00_note/`.
