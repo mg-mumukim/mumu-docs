@@ -99,3 +99,19 @@ On evaluation, we will use LLM-as-a-judge to evaluate the coach result based on 
 - Ease: Is the recommended action easy and realistic for the user to execute?
 - Title/Action Cohesion:Does the action logically follow from the identified insight?
 - Diversity score: Is the Low/Medium/High diversity classification correct based on the photo set?
+
+# Data lifecycle policy
+## HyperPod - custom model training
+HyperPod is a cloud model training infrastructure maintained by Hyperconnect AI Lab.
+Our machine learning engineers uses HyperPod to train models.
+
+Currently, we are download/integrate Tinder user data to HyperPod analyze or train models and delete them manually after experiment or 3 months.
+We are now building automated system to manage retention and deletion of sensitve data.
+For engineering details, see: `00_note/2026-04-06-hyperpod-dlp-plan-mg-security.md`
+
+## Local mac book - agentic research
+While HyperPod is proper for huge GPU jobs, data analysis and agentic research is done on local machines.
+
+## MG Core S3 - AURA demo, evaluation
+AUDA demo service and evaluation services are served on MG Core's central infrastructure.
+They store copied version of user profiles to draw UI and feed LLMs to generate coach to MG AI S3 buckets.

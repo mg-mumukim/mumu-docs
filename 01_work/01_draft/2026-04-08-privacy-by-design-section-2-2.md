@@ -4,13 +4,31 @@ Target document: `00_note/2026-04-03-privacy-by-design-aura-demo-wip.md`
 
 ---
 
+2.2 How will Personal Information be processed?
+
 Response:
 
-The AURA project processes existing Tinder user data through LLM-based research and demo pipelines. No new data is collected from users directly. The data flow consists of the following stages:
+**Executive Summary**
+
+The AURA project uses existing Tinder user data (demographics, profile content, photos, bio text, and behavioral metrics -- excluding direct identifiers) to generate personalized profile coaching. Data is sourced from the Tinder Databricks warehouse, scoped to AUS/NZL/CAN/US only, explicitly excluding EU/EEA/Switzerland/US-Illinois.
+Data and model usages can be categorized as 4 different pillars.
+
+- **Research**: AI agents run aggregate statistical analyses to build a "Knowledge Base". All outputs are aggregate-level and contain no individually identifiable data.
+- **Model training**: Custom models discover domain concepts, predict their presence per user, and estimate causal treatment effects.
+- **Demo**: Custom model + Gemini API generate natural language coaching for individual users. Photos are passed unblurred (required for expression/composition evaluation); no facial identification or biometric extraction is performed. Bio text may contain sensitive information, but coaching topics are pre-fixed to an approved non-sensitive concept list.
+- **Evaluation**: Human and/or LLM-as-a-judge continuously monitors output quality and guardrail compliance -- bio safety, photo identification incidents, and sensitive concept surfacing.
+
+Concept governance: concepts posing legal extraction risk are removed entirely; those safe to extract but inappropriate to surface are retained for model accuracy only (coachable = N). All concept lists and Knowledge Base entries are human-reviewed before deployment or export.
+
+Extracted data is retained for no more than 3 months under Match Group's DLP. Third-party LLM vendors (Anthropic, OpenAI, Google) are used within MG-approved environments; only Gemini is used for the user-facing demo.
+
+---
+
+The data flow consists of the following stages:
 
 ### Step 1: Data Collection from Existing Sources
 
-User data is sourced from Tinder's existing Databricks infrastructure. No new data collection mechanisms are introduced -- only data already available through Match Group's existing pipelines is accessed. The following categories of data are used:
+User data is sourced from Tinder's existing Databricks infrastructure. No new data collection mechanisms are introduced -- only data already available through Match Group's existing data infrastructure is accessed. The following categories of data are used:
 
 #### 1a. Demographics (excluding user identifiers)
 
@@ -77,7 +95,7 @@ These are used as control variables in research analysis and model training.
 
 The LLMs are not explicitly prompted to extract biometric data from user photos. Photo analysis identifies domain-level visual concepts (e.g., "outdoor setting", "group photo", "clear face shot") but does not perform facial recognition, facial geometry extraction (FaceMap), or 1:N/1:1 person identification. Identifying duplicate photos is permitted, but not by recognizing the person -- only by visual similarity of the image itself.
 
-However, even without explicit prompting, LLMs may internally perform gray-zone operations as part of achieving their assigned task -- for example, implicitly processing facial features to assess photo composition, or inferring demographic attributes to contextualize a recommendation. To mitigate this risk, explicit guardrails are embedded in the system prompt that prohibit identity inferences, biometric analysis, and sensitive attribute extraction. These guardrails are continuously monitored through the evaluation pipeline (Step 5), and prompts are iteratively refined when violations are detected.
+However, even without explicit prompting, LLMs may internally perform gray-zone operations as part of achieving their assigned task -- for example, implicitly processing facial features to assess photo composition, or inferring demographic attributes to contextualize a recommendation. To mitigate this risk, explicit guardrails are embedded in the system prompt that prohibit identity inferences, biometric analysis, and sensitive attribute extraction. These guardrails are continuously monitored through the evaluation process (Step 5), and prompts are iteratively refined when violations are detected.
 
 ### Step 2: Research -- Knowledge Base Generation
 
@@ -104,10 +122,10 @@ The same source data is used to train custom ML models with three objectives:
 3. **Causal inference**: Calculate the conditional average treatment effect (CATE) of adjusting specific profile elements to determine the most impactful coaching advice for each user.
 
 Similar to Step 2, the model training process leverages the full range of source data described in Step 1.
-Demographic features (age, gender, target gender, geographic region) serve as conditioning variables in the causal inference pipeline, because the contribution of a given profile attribute to rSRR varies significantly across cohorts -- for example, the effect of adding an outdoor activity photo differs between genders and age groups.
+Demographic features (age, gender, target gender, geographic region) serve as conditioning variables in the causal inference process, because the contribution of a given profile attribute to rSRR varies significantly across cohorts -- for example, the effect of adding an outdoor activity photo differs between genders and age groups.
 User behavior data (swipe history, rSRR per photo) provides the outcome signal for estimating treatment effects. The final output of the trained models is a ranked list of actionable profile attributes (i.e., attributes the user can realistically change) and their estimated importance scores per cohort -- for example, "adding an outdoor activity photo" may rank as a high-impact treatment for a specific demographic segment.
 
-The domain concept list undergoes the same human review process described in Step 2 before deployment. These models use a distinct processing pipeline and storage locations (AURA demo) from the Research Agent (during research).
+The domain concept list undergoes the same human review process described in Step 2 before deployment. These models use distinct processing and storage locations (AURA demo) from the Research Agent (during research).
 
 ### Step 4: Demo -- Profile Coaching Generation
 
@@ -119,8 +137,8 @@ For individual users, the system generates personalized profile coaching:
 
 **Sensitive data handling in LLM input**:
 
-- **Bio text**: The user's bio is passed to the LLM as context. Because bio text is free-form, it may contain any type of sensitive information (e.g., health conditions, political views, religious beliefs). However, the set of coachable topics is pre-defined and fixed -- the LLM is constrained to generate advice only for approved concept categories. The LLM is therefore not expected to reference, leverage, or surface sensitive bio content in its output. Compliance with this constraint is continuously validated through the evaluation pipeline (Step 5), with the system prompt iteratively refined based on findings.
-- **Profile photos**: Photos are passed to the LLM without blurring or anonymization, because the coaching task requires evaluating facial expressions, photo composition, lighting quality, and overall visual impression -- all of which would be degraded or lost by such processing. As a result, photos may contain the user's identifiable face. As noted in Step 1 (Note on Biometric Data), no facial identification or verification is performed. Should such behavior occur as an unintended side effect, the evaluation pipeline (Step 5) is designed to detect and flag these cases for prompt correction.
+- **Bio text**: The user's bio is passed to the LLM as context. Because bio text is free-form, it may contain any type of sensitive information (e.g., health conditions, political views, religious beliefs). However, the set of coachable topics is pre-defined and fixed -- the LLM is constrained to generate advice only for approved concept categories. The LLM is therefore not expected to reference, leverage, or surface sensitive bio content in its output. Compliance with this constraint is continuously validated through the evaluation process (Step 5), with the system prompt iteratively refined based on findings.
+- **Profile photos**: Photos are passed to the LLM without blurring or anonymization, because the coaching task requires evaluating facial expressions, photo composition, lighting quality, and overall visual impression -- all of which would be degraded or lost by such processing. As a result, photos may contain the user's identifiable face. As noted in Step 1 (Note on Biometric Data), no facial identification or verification is performed. Should such behavior occur as an unintended side effect, the evaluation process (Step 5) is designed to detect and flag these cases for prompt correction.
 
 **Concept lifecycle: extraction, curation, and coaching eligibility**:
 
@@ -133,7 +151,7 @@ Once established, each concept is classified by coaching eligibility:
 
 Two distinct policies govern concept restriction:
 
-1. **Removal from list**: If extracting a concept itself poses legal or regulatory risk (e.g., inferring sexual orientation, racial identity, or medical conditions), the concept is excluded from the list entirely and is not processed by any pipeline.
+1. **Removal from list**: If extracting a concept itself poses legal or regulatory risk (e.g., inferring sexual orientation, racial identity, or medical conditions), the concept is excluded from the list entirely and is not processed at any stage.
 2. **Coachable = N**: If a concept can be safely extracted but should not be surfaced to the user -- either because coaching on it carries reputational risk (e.g., `skin_complexion_quality`), involves immutable traits (e.g., `blonde_hair_feature`), or does not align with product values (e.g., `luxury_affluence_signal`) -- the concept is retained for internal model accuracy but flagged as non-coachable. The LLM never generates recommendations based on these concepts.
 
 ### Step 5: Evaluation -- Quality Assurance and Guardrail Monitoring
@@ -149,7 +167,7 @@ Human and/or LLM-as-a-judge evaluates the generated coaching against the followi
 - Title/Action cohesion (action follows from identified insight)
 - Diversity score (correct Low/Medium/High classification of the photo set)
 
-Beyond product quality, the evaluation pipeline also serves as continuous monitoring for privacy guardrail compliance. Specifically, it is designed to detect:
+Beyond product quality, the evaluation process also serves as continuous monitoring for privacy guardrail compliance. Specifically, it is designed to detect:
 
 - **Bio safety violations**: Cases where the LLM references or surfaces sensitive information from the user's free-form bio text (e.g., health conditions, political views, religious beliefs) outside the pre-approved set of coachable topics.
 - **Photo identification incidents**: Cases where the LLM performs or implies facial identification (1:N) or identity verification (1:1) as an unintended side effect of photo analysis.

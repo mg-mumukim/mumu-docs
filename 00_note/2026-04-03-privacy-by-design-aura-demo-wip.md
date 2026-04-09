@@ -81,7 +81,7 @@ Please also describe how the data will be disposed of or anonymized at the end o
 For an explanation of permitted retention terms per category of data, please refer to Match Group's Data Lifecycle Policy accessible on Workday.
 
 Response:
-Approximately 6 months, but deactivated account data will be flushed out every 3 months.
+{{ TODO }}
 
 ## 2.9 What security measures will apply to the project?
 Based on consultations with the Security team (or otherwise), please identify the security controls that have been / will be implemented.
