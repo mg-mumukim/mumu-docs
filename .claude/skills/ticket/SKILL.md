@@ -1,15 +1,15 @@
 ---
-name: jira
+name: ticket
 description: Query and manage Jira issues in the Hyperconnect Atlassian workspace (AURA project, etc.).
 ---
 
 # Usage
-/jira <action> [arguments]
+/ticket <action> [arguments]
 
 Examples:
-- `/jira LP-485` -- Get issue details
-- `/jira my issues` -- List my in-progress issues
-- `/jira search <JQL>` -- Run a JQL query
+- `/ticket LP-485` -- Get issue details
+- `/ticket my issues` -- List my in-progress issues
+- `/ticket search <JQL>` -- Run a JQL query
 
 # Configuration
 
