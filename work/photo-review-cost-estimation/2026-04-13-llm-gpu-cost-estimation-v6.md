@@ -297,7 +297,7 @@ Derived L40S figures used in this document (Qwen3-VL-8B, B=16):
 - Full-forward: H100 236 users/s / 3.0 = 79 users/s (used in all GPU cost calculations)
 - Production-truncated (trunc=19): H100 280 users/s / 3.0 = 94 users/s (noted but not used for costing)
 - Value: 3.0x scaling factor → 79 users/s (full-forward), ~94 users/s (truncated)
-- Source: H100 989 TFLOPS / L40S 362 TFLOPS (compute), H100 3.35 TB/s / L40S 864 GB/s (memory); H100 measurements from `note/source/2026-04-10-profle-ranker-h100-benchmark.md`
+- Source: H100 989 TFLOPS / L40S 362 TFLOPS (compute), H100 3.35 TB/s / L40S 864 GB/s (memory)
 
 ### 7.10 Infrastructure Overhead Not Included
 
