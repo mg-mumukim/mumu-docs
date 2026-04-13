@@ -1,41 +1,57 @@
 ---
 name: draft
-description: Draft or revise a document from `note/` sources into `work/` versioned files.
+description: Draft or revise a document from `note/` sources into `work/<topic>`. Use when asked to write, draft, or summarize a deliverable document.
 ---
 
 # Usage
-/draft <topic or filename> <request or feedback>
+/draft <topic or filename> <optional feedback>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
 The argument can be:
-- A topic to start a new draft (e.g. `/draft privacy-by-design-section-3`)
-- An existing filename in `work/` to revise (e.g. `/draft privacy-by-design-section-2-8-v1.md`)
+- A topic to start a new draft (e.g. `/draft privacy-by-design`)
+- An existing filename in `work/<topic>` to revise (e.g. `/draft privacy-by-design-v1.md add executive summary`)
 
 # Workflow
 
-## 1. Gather source material
-- Read relevant files in `note/source/`, `note/task/`, and `note/context/`.
+## 1. Find the request
+- Glob `note/task/*<topic>*-request*` to find a matching request file.
+- If a request file exists, read it — this is the primary input defining what to draft.
+- Also read relevant files in `note/source/` and `note/context/`.
 - If a specific note file is referenced, read that file.
 - If external sources (Slack, Jira, Glean, Notion) are needed, search and collect them.
 
 ## 2. Check existing versions in `work/`
 - Glob `work/**/*<topic>*` to find existing versions.
-- If versions exist, read the latest version to find:
-  - `[!NOTE]` callouts with reviewer feedback.
-  - Inline comments or requests from the human reviewer.
-  - Determine the next version number (e.g. v2 -> v3).
-  - Do not increase date.
+- If versions exist, this is a **revision** — skip to step 4 (Write).
+  - Read the latest version to find:
+    - `[!NOTE]` callouts with reviewer feedback.
+    - Inline comments or requests from the human reviewer.
+    - Determine the next version number (e.g. v2 -> v3).
+    - Do not increase date.
 - If no versions exist, start at v1.
 
 ## 3. Write the new version
-- Create a new file: `work/<project>/yyyy-MM-dd-<topic>-v<N>.md`.
-- Use the existing project directory if one matches. Otherwise create a new project directory.
-- Use today's date (!`date '+%Y-%m-%d'`) for the new version file.
-- Incorporate all reviewer `[!NOTE]` from the previous version.
+
+### Resolve project directory
+- If this is a revision, use the same directory as the existing version.
+- If the user provides a topic and a glob `work/**/*<topic>*` matches, use that directory.
+- If no match is found, create a new directory under `work/`.
+  - Directory name: `<scope>-<subject>` in lowercase kebab-case.
+    - `<scope>`: the broader initiative or product area (e.g. `photo-review`, `mumu-profile`).
+    - `<subject>`: the specific deliverable (e.g. `privacy-by-design`, `llm-cost-estimation`).
+  - If the scope is ambiguous, ask the user before creating.
+
+### File naming
+- `work/<project>/yyyy-MM-dd-<document-slug>-v<N>.md`
+- `<document-slug>` SHOULD match or be a subset of the directory name. Allowed to differ when a project has multiple documents (e.g. `photo-review-privacy-by-design/` can contain `privacy-by-design-section-2-2-v1.md`).
+- MUST NOT modify existing version files.
+
+### Content
+- Use today's date for the new version file.
+- For revisions: incorporate all reviewer `[!NOTE]` from the previous version.
 - SHOULD use source material from `note/` as the basis.
 - MUST memo which files or information sources are referred at the top of the document.
-- MUST NOT modify any existing version files.
 
 ### Document structure
 - MUST follow the structure and heading hierarchy given in the `note/` source material. MUST NOT invent new sections or reorder unless the user requests it.
@@ -49,8 +65,8 @@ The argument can be:
 - **No editorial additions**: MUST NOT add opinions, recommendations, or commentary unless the source note explicitly requests it.
 
 ## 4. Report to the user
-- Summarize what changed from the previous version.
-- List which `[!NOTE]` items were addressed.
+- Summarize what changed from the previous version (for revisions).
+- List which `[!NOTE]` items were addressed (for revisions).
 - Note any items that could not be addressed and why.
 
 # Rules
