@@ -1,6 +1,6 @@
 ---
 name: idea
-description: Capture a quick idea into `00_note/idea/` as a timestamped entry.
+description: Capture a quick idea into `note/idea/` as a timestamped entry.
 ---
 
 # Usage
@@ -9,7 +9,7 @@ description: Capture a quick idea into `00_note/idea/` as a timestamped entry.
 # Workflow
 
 1. Infer the topic from the sentence. Use a short, lowercase slug (e.g. `onboarding`, `photo-review`).
-2. Check if `00_note/idea/<topic>.md` already exists.
+2. Check if `note/idea/<topic>.md` already exists.
 3. If new file, create it with a `# <topic>` heading.
 4. Find or create a `## yyyy-MM-dd` section for today's date. Append the idea as a bullet:
    ```
