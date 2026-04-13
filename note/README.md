@@ -8,7 +8,7 @@ File naming: `yyyy-MM-dd-[a-z0-9-].md` (e.g. `2026-04-03-auth-spec.md`)
 
 | Directory | Writer | Description |
 |-----------|--------|-------------|
-| `source/` | Human only | Raw inputs: meeting notes, system context, plans, prompts, CSVs, discussion notes. |
+| `source/` | Human or Claude via `/probe` | Raw inputs and research summaries. |
 | `personal/` | Human only | Private notes (1:1, evaluations). Git-ignored. |
 | `idea/` | Claude via `/idea` | Quick ideas captured by topic. |
 | `task/` | Human only | Instruction templates (`-wip`) for `/draft`. |
