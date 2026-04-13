@@ -4,7 +4,7 @@ Active working documents organized by project. The latest version is the canonic
 
 Structure: `work/<project>/yyyy-MM-dd-<topic>-v<N>.md`
 
-Example: `work/photo-review/2026-04-10-photo-review-llm-cost-estimation-v1.md`
+Example: `work/photo-review-llm-cost-estimation/2026-04-10-photo-review-llm-cost-estimation-v1.md`
 
 ## Ownership
 
