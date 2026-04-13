@@ -14,21 +14,22 @@ The argument can be:
 
 # Workflow
 
-## 1. Find the request
-- Glob `note/task/*<topic>*-request*` to find a matching request file.
-- If a request file exists, read it — this is the primary input defining what to draft.
-- Also read relevant files in `note/source/` and `note/context/`.
-- If a specific note file is referenced, read that file.
+## 1. Discover sources
+- Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
+- Glob `note/source/*<topic>*` — source material.
+- Glob `work/**/*<topic>*` — existing work output (probe reports, prior drafts).
+- Read `note/context/` files referenced by CLAUDE.md.
+- If a request file (`*-request*`) is found, read it first — it is the primary input.
 - If external sources (Slack, Jira, Glean, Notion) are needed, search and collect them.
+- Read all discovered files before writing.
 
 ## 2. Check existing versions in `work/`
 - Glob `work/**/*<topic>*` to find existing versions.
-- If versions exist, this is a **revision** — skip to step 4 (Write).
+- If versions exist, this is a **revision** — skip to step 3 (Write).
   - Read the latest version to find:
     - `[!NOTE]` callouts with reviewer feedback.
     - Inline comments or requests from the human reviewer.
     - Determine the next version number (e.g. v2 -> v3).
-    - Do not increase date.
 - If no versions exist, start at v1.
 
 ## 3. Write the new version
@@ -48,10 +49,12 @@ The argument can be:
 - MUST NOT modify existing version files.
 
 ### Content
-- Use today's date for the new version file.
-- For revisions: incorporate all reviewer `[!NOTE]` from the previous version.
+- For new drafts (v1): use today's date in the filename.
+- For revisions: keep the date from the existing version. Incorporate all reviewer `[!NOTE]` from the previous version.
 - SHOULD use source material from `note/` as the basis.
-- MUST memo which files or information sources are referred at the top of the document.
+- MUST memo which files, URLs, or information sources are referred at the top of the document.
+- MUST NOT reference local file paths (`note/`, `work/`) in the document body. The body is read outside the working environment. Use descriptive names, URLs, or document titles instead. The sources memo at the top is exempt from this rule.
+- For revisions (v2+): MUST include a **Changes from v{N-1}** section at the top of the document, directly after the sources memo. Each entry is a one-line bullet summarizing what changed — like a git commit message. Do not include detailed content; just state what was added, removed, or rewritten.
 
 ### Document structure
 - MUST follow the structure and heading hierarchy given in the `note/` source material. MUST NOT invent new sections or reorder unless the user requests it.
@@ -63,6 +66,7 @@ The argument can be:
 - **Use K/M notation**: SHOULD write large numbers as 18M, 255.5K, $33K — not 18,000,000 or $33,000.
 - **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material. MUST use exact definitions and terminology from the source.
 - **No editorial additions**: MUST NOT add opinions, recommendations, or commentary unless the source note explicitly requests it.
+- **Verify math with code**: When the document involves numerical calculations (cost estimation, traffic projection, unit conversion, etc.), MUST run the arithmetic in a Python script via Bash and use the output. Do not perform multi-step math in your head.
 
 ## 4. Report to the user
 - Summarize what changed from the previous version (for revisions).

@@ -49,7 +49,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 ### Resolve project directory
 - Glob `work/**/*<topic>*` to find an existing project directory.
 - If found, use that directory.
-- If not found, create a new directory under `work/` with `<scope>-<subject>` naming.
+- If not found, create a new directory under `work/` with `<scope>-<subject>` naming in lowercase kebab-case.
 - If the scope is ambiguous, ask the user before creating.
 
 ### File naming
@@ -66,11 +66,11 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 3. **Evidence / Details** — Supporting data that the findings reference: production cost breakdowns, benchmark tables, scaling scenarios. Only include what a finding explicitly cites.
 4. **Reference (appendix)** — Raw data extracted from code or docs (constants, pricing tables, formulas, arithmetic verification). This section exists for reproducibility, not for reading. Do not let it dominate the document.
 
-MUST NOT use a structure that follows the order of investigation (searched A, then found B, then checked C). The document is organized by what the reader needs, not by how the research was done.
-
-MUST memo which files, URLs, or information sources are referred at the top of the document.
+- MUST NOT use a structure that follows the order of investigation (searched A, then found B, then checked C). The document is organized by what the reader needs, not by how the research was done.
+- MUST memo which files, URLs, or information sources are referred at the top of the document.
 
 ### Writing convention
+
 - **No embellishment**: MUST NOT use metaphors, analogies, or illustrative examples not present in source material.
 - **No LaTeX**: MUST use plain text for formulas (e.g., `Daily calls = DAU x 7%`), not `$$...$$` notation.
 - **Plain tables**: MUST NOT use inline formatting (bold, italic, strikethrough, etc.) in table cells.
