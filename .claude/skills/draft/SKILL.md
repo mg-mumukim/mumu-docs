@@ -15,6 +15,7 @@ The argument can be:
 # Workflow
 
 ## 1. Gather source material
+- Read `INDEX.md` to find files related to the requested topic.
 - Read all files in `00_note/` that are relevant to the requested topic.
 - If a specific note file is referenced, read that file.
 - If external sources (Slack, Jira, Glean, Notion) are needed, search and collect them.
@@ -47,7 +48,12 @@ The argument can be:
 - **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material. MUST use exact definitions and terminology from the source.
 - **No editorial additions**: MUST NOT add opinions, recommendations, or commentary unless the source note explicitly requests it.
 
-## 4. Report to the user
+## 4. Update INDEX.md
+- If the new draft introduces a topic not yet in `INDEX.md`, add it.
+- Add the new `01_work/` file under the appropriate topic.
+- If the topic already has a `02_record/` entry for this document, do not add the `01_work/` file.
+
+## 5. Report to the user
 - Summarize what changed from the previous version.
 - List which `[!NOTE]` items were addressed.
 - Note any items that could not be addressed and why.

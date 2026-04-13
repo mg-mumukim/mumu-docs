@@ -28,7 +28,11 @@ The argument can be:
 - MUST remove the `> **Sources**:` block (the `>` quoted paragraph at the top). This metadata is for drafting context only and MUST NOT appear in the published record.
 - If a target already exists in `02_record/`, overwrite it (this is a refinement of an existing record).
 
-## 4. Commit documents
+## 4. Update INDEX.md
+- Add the new `02_record/` file under the appropriate topic.
+- Remove the corresponding `01_work/` entry for the same document (record supersedes work).
+
+## 5. Commit documents
 - MUST stage all new/updated files in `02_record/` and the related `01_work/` version files in a single commit.
 - Commit message example: `Publish <topic> (from <source filename>)`
 - MUST push to the current branch after committing.
