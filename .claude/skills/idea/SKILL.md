@@ -18,6 +18,7 @@ description: Capture a quick idea into `note/idea/` as a timestamped entry.
 5. If today's date section already exists, append below existing bullets.
 
 # Rules
+- **Write everything in English.** All output files must be in English regardless of the user's input language.
 - One file per topic. Dates are sections within the file.
 - Do not edit or reformat existing entries.
 - Do not add commentary or expand the idea. Record it as-is.

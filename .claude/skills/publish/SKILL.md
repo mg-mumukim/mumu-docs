@@ -32,5 +32,6 @@ The latest version in `work/` is already the canonical final document; publishin
 - MUST push to the current branch after committing.
 
 # Rules
+- **Write everything in English.** All output files MUST be in English regardless of the user's input language.
 - MUST NOT publish without explicit human approval ("publish", "approve", "finalize").
 - MUST NOT modify existing version files in `work/`.

@@ -57,4 +57,5 @@ The argument can be:
 - MUST NOT modify files in `note/`.
 - MUST NOT modify existing version files in `work/`.
 - MUST create a new version file for each revision in `work/`.
-- SHOULD use plain, practitioner-friendly English as the default language.
+- **Write everything in English.** All output files MUST be in English regardless of the user's input language.
+- SHOULD use plain, practitioner-friendly English as the default style.
