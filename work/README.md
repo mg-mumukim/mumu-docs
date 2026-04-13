@@ -1,6 +1,6 @@
 # Work
 
-Active working documents organized by project. Approved documents graduate to `note/task/` via `/publish`.
+Active working documents organized by project. The latest version is the canonical final document.
 
 Structure: `work/<project>/yyyy-MM-dd-<topic>-v<N>.md`
 
@@ -18,6 +18,6 @@ Example: `work/photo-review/2026-04-10-photo-review-llm-cost-estimation-v1.md`
 3. Claude incorporates the feedback into a new version file (`-v2`, `-v3`, ...).
 4. Previous version files are preserved as-is (history).
 
-## Graduation
+## Cross-project reference
 
-When human gives final approval, the approved version file is published to `note/task/` (without `-wip` suffix). Claude performs this only after explicit human permission via `/publish`.
+If a finalized document needs to be referenced by other projects, use `/publish` to copy it to `note/context/` (version suffix stripped).
