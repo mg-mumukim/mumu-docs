@@ -7,4 +7,4 @@
 # Reference documents
 
 When drafting or revising any project-related document, always read and reference:
-- `02_record/2026-04-09-mumu-kim-profile-summary.md` -- Mumu Kim's profile summary (projects, competencies, people, channels)
+- `00_note/context/2026-04-09-mumu-profile.md` -- Mumu Kim's profile summary (projects, competencies, people, channels)
