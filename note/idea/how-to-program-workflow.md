@@ -4,6 +4,7 @@
 ### 2026-04-13
 - Problems split into well-defined problems and ill-defined problems.
 - Three types of well-defined problems: arrangement, inducing structure, and transformation. (Ref: Posner, *Cognition: An Introduction*, 1973 — unverified)
+- External environments in a workflow split into two kinds: shared workspaces (Notion, Jira, Google Docs) and compute (on-premise, deployment).
 
 ## Questions
 ### 2026-04-13
