@@ -4,7 +4,7 @@ description: Draft or revise a document from `note/` sources into `work/<topic>`
 ---
 
 # Usage
-/write-draft <topic or filename> <optional feedback>
+/write-draft <topic or filename> <optional instruction>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
@@ -15,9 +15,10 @@ The argument can be:
 # Workflow
 
 ## 1. Analyze the request
-- Identify the **topic** from the argument.
-- Identify the **audience** (executives, engineers, external, etc.).
-- Separate user instructions into two categories:
+- From the user's request, identify:
+  - **Topic**: the subject to draft or the filename to revise.
+  - **Audience** (executives, engineers, external, etc.).
+- Separate the instruction into two categories:
   - **Goal**: What the user ultimately wants to achieve. This is an outcome, not a procedure. (e.g. "make the cost section convincing", "emphasize privacy compliance")
   - **Directive**: Specific procedures, constraints, or formatting the user explicitly dictated. These MUST be followed as stated. (e.g. "keep it under 2 pages", "use the same structure as v1", "include a table comparing options")
 - If the topic cannot be determined, ask the user before proceeding.
@@ -49,7 +50,7 @@ Use **resolve-docs** for project directory, file naming, and version creation.
 
 ### Content
 - SHOULD use source material from `note/` as the basis.
-- For revisions: incorporate all `[!NOTE]` feedback from the previous version and any user feedback from step 1.
+- For revisions: incorporate all `[!NOTE]` feedback from the previous version, plus the **goal** and **directives** from step 1.
 
 ## 4. Report to the user
 - Summarize what changed from the previous version (for revisions).
