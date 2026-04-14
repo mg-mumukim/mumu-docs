@@ -35,6 +35,11 @@ The argument can be:
 
 ## 3. Write the new version
 
+### Create the version file
+- For new drafts (v1): use Write to create the file.
+- For revisions (v2+): copy the latest version to the new filename first, then Edit only the new file. Never Edit the source file.
+- Mid-conversation follow-up changes (e.g., "fix this line", "add X") are still revisions — increment the version number, copy, and edit the new file.
+
 ### Resolve project directory
 - If this is a revision, use the same directory as the existing version.
 - If the user provides a topic and a glob `work/**/*<topic>*` matches, use that directory.
