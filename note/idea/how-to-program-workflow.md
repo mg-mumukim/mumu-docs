@@ -10,7 +10,7 @@
 - If a workflow is a program, what are its input, output, invariant, and effect?
 - A workflow is an implementation of a problem-solving procedure. What is a task/problem in the first place?
 - Does a well-defined problem also require measurement to be defined, or is that implied by the goal state?
-- Is the generation-verification gap related to the inherent properties of the problem type? (Ref: [generation-verification gap hypothesis](https://www.emergentmind.com/topics/generation-verification-gap-hypothesis))
+- Is the generation-verification gap related to the inherent properties of the problem type? (Ref: [generation-verification gap hypothesis](https://www.emergentmind.com/topics/generation-verification-gap-hypothesis), [asymmetry of verification and verifier's law](https://www.jasonwei.net/blog/asymmetry-of-verification-and-verifiers-law))
 
 ## Hypotheses
 ### 2026-04-13

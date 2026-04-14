@@ -10,9 +10,10 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 
 # Workflow
 
-## 1. Identify the question
-- Extract the user's question from the arguments. The question drives the entire research.
-- If the question is implicit (e.g. "investigate X"), restate it explicitly before proceeding (e.g. "How does X work, and is it reliable?").
+## 1. Frame the problem
+- Restate the user's question as a specific unknown: what fact, number, or judgment is missing?
+- Identify what depends on the answer: what decision, action, or document is blocked until this is known?
+- From that, determine what a sufficient answer looks like — its form (a number, a comparison, a recommendation), its precision (order-of-magnitude vs exact), and its scope.
 
 ## 2. Prepare a report plan
 
@@ -53,8 +54,8 @@ Use **resolve-docs** for project directory, file naming, and version creation. T
 The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 
 1. **Conclusion** — A direct answer to the user's question. The reader MUST understand the answer from this section alone, without reading further. State the question, then the answer, then the critical numbers.
-2. **Key Findings** — The reasoning that supports the conclusion. Each finding MUST be a claim with inline evidence. If a fact has a known issue, state the issue next to the fact — not in a separate section.
-3. **Evidence / Details** — Supporting data that the findings reference: production cost breakdowns, benchmark tables, scaling scenarios. Only include what a finding explicitly cites.
+2. **Key Findings** — The reasoning that supports the conclusion. Each finding is a claim with a brief inline citation (a number, a source name, a one-line quote). Do not embed full tables or raw data here — reference the Evidence section instead.
+3. **Evidence / Details** — The full supporting data that findings reference: production cost breakdowns, benchmark tables, scaling scenarios. Only include what a finding explicitly cites.
 4. **Reference (appendix)** — Raw data extracted from code or docs (constants, pricing tables, formulas, arithmetic verification). This section exists for reproducibility, not for reading. Do not let it dominate the document.
 
 - MUST NOT use a structure that follows the order of investigation (searched A, then found B, then checked C). The document is organized by what the reader needs, not by how the research was done.

@@ -8,7 +8,7 @@ The key words MUST, MUST NOT, and SHOULD in this document are to be interpreted 
 
 - **No modification**: MUST NOT modify files in `note/`. MUST NOT modify existing version files in `work/`.
 - **Source memo**: MUST list which files, URLs, or information sources are referred at the top of the document.
-- **No local paths in body**: MUST NOT reference local file paths (`note/`, `work/`) in the document body. The body is read outside the working environment. Use descriptive names, URLs, or document titles instead. The source memo at the top is exempt from this rule.
+- **No workspace paths in body**: MUST NOT reference workspace file paths (e.g. `note/...`, `work/...`) in the document body. The body is read outside the working environment. Use descriptive names, URLs, or document titles instead. Code repository paths and external URLs are fine. The source memo at the top is exempt from this rule.
 - **Change log**: For revisions (v2+), MUST include a **Changes from v{N-1}** section at the top, directly after the source memo. Each entry is a one-line bullet summarizing what changed. Do not include detailed content.
 
 ## Style
