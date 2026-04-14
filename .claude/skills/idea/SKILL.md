@@ -19,14 +19,18 @@ Examples:
    - If the topic is ambiguous, ask the user.
 2. Check if `note/idea/<topic>.md` already exists.
 3. If new file, create it with a `# <topic>` heading.
-4. If contents are provided, find or create a `## yyyy-MM-dd` section for today's date. Append the idea as a bullet:
-   ```
-   - <contents>
-   ```
-5. If today's date section already exists, append below existing bullets.
+4. **Classify** the content into one of four sections by epistemic status:
+   - `## Observations` — facts, patterns, things noticed
+   - `## Questions` — unknowns, things to explore
+   - `## Hypotheses` — beliefs to validate, guesses
+   - `## Principles` — validated rules, best practices
+5. Find or create the matching `##` section, then find or create a `### yyyy-MM-dd` subsection for today's date. Append the idea as a bullet.
+6. If the date subsection already has bullets, append below existing ones.
 
 # Rules
 - **Write everything in English.** All output files must be in English regardless of the user's input language.
 - One file per topic. Dates are sections within the file.
 - Do not edit or reformat existing entries.
 - Do not add commentary or expand the idea. Record it as-is.
+- Section order: Observations → Questions → Hypotheses → Principles.
+- If the user does not specify a category, infer it from the sentence. If ambiguous, default to Observations.
