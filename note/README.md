@@ -11,6 +11,6 @@ File naming: `yyyy-MM-dd-[a-z0-9-].md` (e.g. `2026-04-03-auth-spec.md`)
 | `source/` | Human only | Raw inputs: meeting notes, system context, plans, prompts, CSVs, discussion notes. |
 | `personal/` | Human only | Private notes (1:1, evaluations). Git-ignored. |
 | `idea/` | Claude via `/idea` | Quick ideas captured by topic. |
-| `task/` | Human or Claude | Requests (`-request`) for `/draft`, plans (`-draft-plan`, `-probe-plan`) for `/draft` and `/probe`. |
+| `task/` | Human or Claude | Requests (`-request`) for `/write-draft`, plans (`-draft-plan`, `-report-plan`) for `/write-draft` and `/write-report`. |
 | `context/` | Human only | Persistent reference material for cross-project use. |
 | `external/` | Human only | External reference documents (e.g. RFCs). |

@@ -1,10 +1,10 @@
 ---
-name: probe
+name: write-report
 description: Research a topic — plan in `note/task/`, report in `work/<topic>`. Use when asked to investigate, compare, estimate, or fact-check something.
 ---
 
 # Usage
-/probe <topic> <optional question>
+/write-report <topic> <optional question>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
@@ -14,10 +14,10 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 - Extract the user's question from the arguments. The question drives the entire research.
 - If the question is implicit (e.g. "investigate X"), restate it explicitly before proceeding (e.g. "How does X work, and is it reliable?").
 
-## 2. Prepare a probe plan
+## 2. Prepare a report plan
 
 ### Check for an existing plan
-- Glob `note/task/*<topic>*probe-plan*` to find a matching plan file.
+- Glob `note/task/*<topic>*report-plan*` to find a matching plan file.
 - If a plan exists, read it and present a summary to the user:
   - Show the existing question, sources, scope, and output format.
   - Ask the user whether to **reuse as-is**, **revise**, or **start fresh**.
@@ -25,7 +25,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
   - If the user chooses to reuse, proceed directly to step 3.
 
 ### Write a new plan (only when no existing plan is found, or user chose "start fresh")
-- Create `note/task/yyyy-MM-dd-<topic-slug>-probe-plan.md`.
+- Create `note/task/yyyy-MM-dd-<topic-slug>-report-plan.md`.
 - The plan MUST include:
   - **Question**: The restated question from step 1.
   - **Sources to check**: Which sources to search (Slack, Jira, Glean, Notion, Confluence, web, codebase, etc.) and why.
@@ -53,7 +53,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 - If the scope is ambiguous, ask the user before creating.
 
 ### File naming
-- `work/<project>/yyyy-MM-dd-<topic-slug>-<output>-v1.md`, where `<output>` is the postfix defined in the probe plan (e.g. `-report`, `-benchmark`, `-comparison`).
+- `work/<project>/yyyy-MM-dd-<topic-slug>-<output>-v1.md`, where `<output>` is the postfix defined in the report plan (e.g. `-report`, `-benchmark`, `-comparison`).
 - Subsequent revisions increment the version: `-v2.md`, `-v3.md`.
 - MUST NOT modify existing version files.
 
@@ -85,6 +85,6 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 # Rules
 - **Write everything in English.** All output files MUST be in English regardless of the user's input language.
 - SHOULD use plain, practitioner-friendly English as the default style.
-- MUST NOT proceed to research without user approval of the probe plan.
+- MUST NOT proceed to research without user approval of the report plan.
 - MUST NOT modify existing version files in `work/`.
 - MUST NOT duplicate existing research in `note/source/` or `work/`.
