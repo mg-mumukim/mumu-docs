@@ -32,7 +32,10 @@ In all subsequent steps, MUST apply **directives** literally and use **goal** to
 - Read `note/context/` files referenced by CLAUDE.md.
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 - Collect any external sources (Slack, Jira, Glean, Notion) specified by the user or needed by the request file.
-- If existing versions are found → **revision mode**: read the latest version, collect `[!NOTE]` feedback, determine next version number.
+- If existing versions are found → **revision mode**:
+  - Read the latest version and collect `[!NOTE]` feedback.
+  - Scan the **Changes from v{N-1}** sections of prior versions to understand the document's evolution.
+  - Determine next version number.
 - If no existing versions → start at v1.
 - Read all discovered files before writing.
 
@@ -50,7 +53,10 @@ Use **resolve-docs** for project directory, file naming, and version creation.
 
 ### Content
 - SHOULD use source material from `note/` as the basis.
-- For revisions: incorporate all `[!NOTE]` feedback from the previous version, plus the **goal** and **directives** from step 1.
+- For revisions, apply inputs in this priority order:
+  1. **Directives** from step 1 — the user's current explicit instructions (highest priority).
+  2. **`[!NOTE]`** feedback from the previous version.
+  3. **Change logs** from prior versions — do not revert previous intentional changes unless a directive or `[!NOTE]` explicitly overrides them.
 
 ## 4. Report to the user
 - Summarize what changed from the previous version (for revisions).
