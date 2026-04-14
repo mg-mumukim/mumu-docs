@@ -14,74 +14,44 @@ The argument can be:
 
 # Workflow
 
-## 1. Discover sources
+## 1. Analyze the request
+- Identify the **topic** from the argument.
+- Identify the **audience** (executives, engineers, external, etc.).
+- Separate user instructions into two categories:
+  - **Goal**: What the user ultimately wants to achieve. This is an outcome, not a procedure. (e.g. "make the cost section convincing", "emphasize privacy compliance")
+  - **Directive**: Specific procedures, constraints, or formatting the user explicitly dictated. These MUST be followed as stated. (e.g. "keep it under 2 pages", "use the same structure as v1", "include a table comparing options")
+- If the topic cannot be determined, ask the user before proceeding.
+
+In all subsequent steps, MUST apply **directives** literally and use **goal** to guide judgment calls (structure, depth, emphasis, what to include or omit).
+
+## 2. Gather material
 - Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
 - Glob `note/source/*<topic>*` — source material.
-- Glob `note/idea/*<topic>*` — idea entries.
 - Glob `work/**/*<topic>*` — existing work output (probe reports, prior drafts).
 - Read `note/context/` files referenced by CLAUDE.md.
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
-- If external sources (Slack, Jira, Glean, Notion) are needed, search and collect them.
+- Collect any external sources (Slack, Jira, Glean, Notion) specified by the user or needed by the request file.
+- If existing versions are found → **revision mode**: read the latest version, collect `[!NOTE]` feedback, determine next version number.
+- If no existing versions → start at v1.
 - Read all discovered files before writing.
-
-## 2. Check existing versions in `work/`
-- Glob `work/**/*<topic>*` to find existing versions.
-- If versions exist, this is a **revision** — skip to step 3 (Write).
-  - Read the latest version to find:
-    - `[!NOTE]` callouts with reviewer feedback.
-    - Inline comments or requests from the human reviewer.
-    - Determine the next version number (e.g. v2 -> v3).
-- If no versions exist, start at v1.
 
 ## 3. Write the new version
 
-### Create the version file
-- For new drafts (v1): use Write to create the file.
-- For revisions (v2+): copy the latest version to the new filename first, then Edit only the new file. Never Edit the source file.
-- Mid-conversation follow-up changes (e.g., "fix this line", "add X") are still revisions — increment the version number, copy, and edit the new file.
+Use **resolve-docs** for project directory, file naming, and version creation.
 
-### Resolve project directory
-- If this is a revision, use the same directory as the existing version.
-- If the user provides a topic and a glob `work/**/*<topic>*` matches, use that directory.
-- If no match is found, create a new directory under `work/`.
-  - Directory name: `<scope>-<subject>` in lowercase kebab-case.
-    - `<scope>`: the broader initiative or product area (e.g. `photo-review`, `mumu-profile`).
-    - `<subject>`: the specific deliverable (e.g. `privacy-by-design`, `llm-cost-estimation`).
-  - If the scope is ambiguous, ask the user before creating.
+### Structure
+- If source material provides a heading hierarchy, MUST follow it. MUST NOT invent new sections or reorder unless a **directive** overrides it.
+- If source material lacks structure, determine an appropriate structure based on the **goal** and **audience**.
 
-### File naming
-- `work/<project>/yyyy-MM-dd-<document-slug>-v<N>.md`
-- `<document-slug>` SHOULD match or be a subset of the directory name. Allowed to differ when a project has multiple documents (e.g. `photo-review-privacy-by-design/` can contain `privacy-by-design-section-2-2-v1.md`).
-- MUST NOT modify existing version files.
+### Depth and focus
+- Adjust detail level and emphasis to match the **audience** (e.g. executives → impact/cost focus, engineers → technical detail).
+- Use the **goal** to decide what to emphasize, include, or omit.
 
 ### Content
-- For new drafts (v1): use today's date in the filename.
-- For revisions: keep the date from the existing version. Incorporate all reviewer `[!NOTE]` from the previous version.
 - SHOULD use source material from `note/` as the basis.
-- MUST memo which files, URLs, or information sources are referred at the top of the document.
-- MUST NOT reference local file paths (`note/`, `work/`) in the document body. The body is read outside the working environment. Use descriptive names, URLs, or document titles instead. The sources memo at the top is exempt from this rule.
-- For revisions (v2+): MUST include a **Changes from v{N-1}** section at the top of the document, directly after the sources memo. Each entry is a one-line bullet summarizing what changed — like a git commit message. Do not include detailed content; just state what was added, removed, or rewritten.
-
-### Document structure
-- MUST follow the structure and heading hierarchy given in the `note/` source material. MUST NOT invent new sections or reorder unless the user requests it.
-
-### Writing convention
-- **No embellishment**: MUST NOT use metaphors, analogies, or illustrative examples not present in source material.
-- **No LaTeX**: MUST use plain text for formulas (e.g., `Daily calls = DAU x 7%`), not `$$...$$` notation.
-- **Plain tables**: MUST NOT use inline formatting (bold, italic, strikethrough, etc.) in table cells.
-- **Use K/M notation**: SHOULD write large numbers as 18M, 255.5K, $33K — not 18,000,000 or $33,000.
-- **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material. MUST use exact definitions and terminology from the source.
-- **No editorial additions**: MUST NOT add opinions, recommendations, or commentary unless the source note explicitly requests it.
-- **Verify math with code**: When the document involves numerical calculations (cost estimation, traffic projection, unit conversion, etc.), MUST run the arithmetic in a Python script via Bash and use the output. Do not perform multi-step math in your head.
+- For revisions: incorporate all `[!NOTE]` feedback from the previous version and any user feedback from step 1.
 
 ## 4. Report to the user
 - Summarize what changed from the previous version (for revisions).
 - List which `[!NOTE]` items were addressed (for revisions).
 - Note any items that could not be addressed and why.
-
-# Rules
-- MUST NOT modify files in `note/`.
-- MUST NOT modify existing version files in `work/`.
-- MUST create a new version file for each revision in `work/`.
-- **Write everything in English.** All output files MUST be in English regardless of the user's input language.
-- SHOULD use plain, practitioner-friendly English as the default style.

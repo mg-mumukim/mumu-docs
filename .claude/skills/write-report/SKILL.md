@@ -1,6 +1,6 @@
 ---
 name: write-report
-description: Research a topic — plan in `note/task/`, report in `work/<topic>`. Use when asked to investigate, compare, estimate, or fact-check something.
+description: Research a topic and write a report to `work/<topic>`. Use only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research.
 ---
 
 # Usage
@@ -46,16 +46,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 
 ## 5. Write the report
 
-### Resolve project directory
-- Glob `work/**/*<topic>*` to find an existing project directory.
-- If found, use that directory.
-- If not found, create a new directory under `work/` with `<scope>-<subject>` naming in lowercase kebab-case.
-- If the scope is ambiguous, ask the user before creating.
-
-### File naming
-- `work/<project>/yyyy-MM-dd-<topic-slug>-<output>-v1.md`, where `<output>` is the postfix defined in the report plan (e.g. `-report`, `-benchmark`, `-comparison`).
-- Subsequent revisions increment the version: `-v2.md`, `-v3.md`.
-- MUST NOT modify existing version files.
+Use **resolve-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the output postfix from the report plan (e.g. `-report`, `-benchmark`).
 
 ### Document structure
 
@@ -67,24 +58,11 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 4. **Reference (appendix)** — Raw data extracted from code or docs (constants, pricing tables, formulas, arithmetic verification). This section exists for reproducibility, not for reading. Do not let it dominate the document.
 
 - MUST NOT use a structure that follows the order of investigation (searched A, then found B, then checked C). The document is organized by what the reader needs, not by how the research was done.
-- MUST memo which files, URLs, or information sources are referred at the top of the document.
-
-### Writing convention
-
-- **No embellishment**: MUST NOT use metaphors, analogies, or illustrative examples not present in source material.
-- **No LaTeX**: MUST use plain text for formulas (e.g., `Daily calls = DAU x 7%`), not `$$...$$` notation.
-- **Plain tables**: MUST NOT use inline formatting (bold, italic, strikethrough, etc.) in table cells.
-- **Use K/M notation**: SHOULD write large numbers as 18M, 255.5K, $33K — not 18,000,000 or $33,000.
-- **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material.
-- **No editorial additions**: MUST NOT add opinions or recommendations unless the user explicitly requests it. Identifying factual discrepancies and unverified assumptions is not editorial — it is verification.
 
 ## 6. Report to the user
 - Summarize what was found and what remains unverified.
 - List any gaps or questions that could not be answered.
 
 # Rules
-- **Write everything in English.** All output files MUST be in English regardless of the user's input language.
-- SHOULD use plain, practitioner-friendly English as the default style.
 - MUST NOT proceed to research without user approval of the report plan.
-- MUST NOT modify existing version files in `work/`.
 - MUST NOT duplicate existing research in `note/source/` or `work/`.
