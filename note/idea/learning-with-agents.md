@@ -11,3 +11,9 @@
 - Goal candidate: have an agent work autonomously for a full workday (8 hours) at the desired quality level without human intervention.
 - How you feed your context into the agent is a critical part of using agents well.
 - The important context is: personal context, organizational context, and relationships (people, projects). This holds regardless of technology advancement.
+
+## Principles
+
+### 2026-04-15
+
+- For an agent to be smart, you need to feed it a lot of your context, so devising a method to do that is the first priority. This requires both supplying historical context and continuously refreshing it with the latest information.
