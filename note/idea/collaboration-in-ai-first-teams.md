@@ -13,3 +13,4 @@
 - All collaboration rituals exist because participants have different knowledge distributions p(x) about a subject. The purpose is to align these distributions.
 - Two alignment modes: consensus (converge on a shared p(x)) and validation (one party checks whether another's p(x) meets a threshold).
 - Communication cost breaks down into three components: (1) encoding cost — how to present information, (2) information acquisition cost — reducing divergence between participants, (3) consensus maintenance cost — keeping alignment over time. Applies to any communication, not just human-human.
+- Collaboration is necessary because different participants hold different capabilities. End-to-end problem solving requires multiple participants to cooperate, paying communication cost. If a single participant's capability is sufficient for end-to-end problem solving and they have spare resources, the communication cost can be eliminated entirely.

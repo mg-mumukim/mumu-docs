@@ -20,3 +20,6 @@
 - A well-defined problem is a state space with: (1) initial state = boundary condition, (2) goal state = utility function, (3) operations = state transitions.
 - Workflows are now a programming target.
 - The criteria for splitting a workflow into steps matter a lot.
+- Compute is the act of transforming data — it creates value directly.
+- Shared workspace is the act of aligning/sharing data — it reduces uncertainty and thus indirectly reduces cost, but coordination itself has cost, and the uncertainty it addresses is an accidental problem caused by having multiple consensus participants.
+- Capability is defined by what you can compute.
