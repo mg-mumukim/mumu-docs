@@ -31,7 +31,7 @@ In all subsequent steps, MUST apply **directives** literally and use **goal** to
 - Glob `work/**/*<topic>*` — existing work output (probe reports, prior drafts).
 - Read `note/context/` files referenced by CLAUDE.md.
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
-- Collect any external sources (Slack, Jira, Glean, Notion) specified by the user or needed by the request file.
+- Collect external sources (Slack, Jira, Glean, Notion) from three origins: specified by the user, needed by the request file, or **linked within any gathered source material**. Follow references found during reading.
 - If existing versions are found → **revision mode**:
   - Read the latest version and collect `[!NOTE]` feedback.
   - Scan the **Changes from v{N-1}** sections of prior versions to understand the document's evolution.
@@ -50,6 +50,8 @@ Use **resolve-docs** for project directory, file naming, and version creation.
 ### Depth and focus
 - Adjust detail level and emphasis to match the **audience** (e.g. executives → impact/cost focus, engineers → technical detail).
 - Use the **goal** to decide what to emphasize, include, or omit.
+- When source material implies a causal mechanism, explain it explicitly for the audience. Do not copy conclusions without unpacking the reasoning behind them.
+- Assume the audience lacks internal context. Clarify units, abbreviations, and numbers that could be ambiguous (e.g. "100K requests" not just "100K").
 
 ### Content
 - SHOULD use source material from `note/` as the basis.

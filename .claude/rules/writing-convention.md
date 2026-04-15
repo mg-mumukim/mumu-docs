@@ -15,7 +15,7 @@ The key words MUST, MUST NOT, and SHOULD in this document are to be interpreted 
 
 - **Language**: MUST write everything in English regardless of the user's input language. SHOULD use plain, practitioner-friendly English.
 - **No embellishment**: MUST NOT use metaphors, analogies, or illustrative examples not present in source material.
-- **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material. MUST use exact definitions and terminology from the source.
+- **Source-faithful only**: MUST NOT invent specifics, implementation details, or quantities absent from source material. MUST use exact definitions and terminology from the source. MUST preserve dates from source material as-is; MUST NOT convert them to relative expressions (e.g., write "on 4/13" not "last week").
 - **No editorial additions**: MUST NOT add opinions, recommendations, or commentary unless the user explicitly requests it.
 - **No LaTeX**: MUST use plain text for formulas (e.g., `Daily calls = DAU x 7%`), not `$$...$$` notation.
 - **Plain tables**: MUST NOT use inline formatting (bold, italic, strikethrough, etc.) in table cells.
