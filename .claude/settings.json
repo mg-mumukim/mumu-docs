@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.simplypsychology.org)",
+      "WebFetch(domain:www.verywellmind.com)",
+      "WebFetch(domain:pressbooks.online.ucf.edu)"
+    ]
+  },
+  "model": "sonnet[1m]"
+}
