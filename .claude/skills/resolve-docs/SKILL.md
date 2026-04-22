@@ -14,7 +14,6 @@ Given a `<topic>`:
 - Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
 - Glob `note/source/*<topic>*` — source material.
 - Glob `work/**/*<topic>*` — existing work output (reports, prior drafts).
-- Read `note/context/` files referenced by CLAUDE.md.
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 
 ## Resolve project directory

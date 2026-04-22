@@ -29,7 +29,6 @@ In all subsequent steps, MUST apply **directives** literally and use **goal** to
 - Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
 - Glob `note/source/*<topic>*` — source material.
 - Glob `work/**/*<topic>*` — existing work output (probe reports, prior drafts).
-- Read `note/context/` files referenced by CLAUDE.md.
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 - Collect external sources (Slack, Jira, Glean, Notion) from three origins: specified by the user, needed by the request file, or **linked within any gathered source material**. Follow references found during reading.
 - If existing versions are found → **revision mode**:
