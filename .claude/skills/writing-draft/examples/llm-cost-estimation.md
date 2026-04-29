@@ -1,6 +1,9 @@
 <!--
-Cost estimation draft: shows a TL;DR summary table followed by numbered technical sections with inline data tables.
-Read the TL;DR section only to calibrate document shape.
+Cost estimation draft for an ML inference feature (LLM + GPU).
+Shows: sources/changes preamble → TL;DR decision table (scope × serving mode × cost × feasibility) → numbered sections with per-unit tables, step-by-step traffic derivations, and inline citations.
+Use to calibrate: preamble format, how a decision table opens the document, section depth and notation style.
+Read to: one line before the first numbered section heading (^## [0-9]).
+  grep -n "^## [0-9]" <this-file> | head -1
 -->
 
 # Photo Review — LLM + GPU Cost Estimation

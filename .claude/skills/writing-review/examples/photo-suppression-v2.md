@@ -1,6 +1,9 @@
 <!--
-Experiment design review: shows a severity summary table followed by findings with Issue / Why It Matters / What Needs to Change structure.
-Read the summary table and first complete finding only.
+Design review of an A/B experiment document.
+Shows: sources block → Comment Summary priority table (Priority × one-line description) → numbered findings (## Comment N — title), each with ### The Issue / ### Why It Matters / ### What Needs to Change subsections.
+Use to calibrate: summary table columns, finding layout, how the three subsections are proportioned and how evidence is cited inline.
+Read to: one line before the second numbered finding (^## Comment [0-9]).
+  grep -n "^## Comment [0-9]" <this-file> | sed -n '2p'
 -->
 
 > Sources:

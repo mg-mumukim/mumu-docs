@@ -1,6 +1,9 @@
 <!--
-Taxonomy research report: shows the sources preamble, changes log, and Conclusion → Key Findings → Evidence hierarchy.
-Read through the Conclusion section only to see the required opening structure and how much detail belongs there.
+Taxonomy research report comparing skill structures across 8 GitHub repos.
+Shows: sources list → changes log → Conclusion (3-paragraph direct answer, high claim density, no sub-bullets) → type taxonomy with comparison tables → appendices with evidence.
+Use to calibrate: how the Conclusion is written (density, structure, what belongs there vs. Key Findings), sources list format.
+Read to: one line before the third H2 heading (## Universal Structure — first Key Findings section).
+  grep -n "^## " <this-file> | sed -n '3p'
 -->
 
 # Agent Skill Taxonomy: Structure, Types, and Components
