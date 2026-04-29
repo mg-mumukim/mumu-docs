@@ -14,6 +14,12 @@ The document reference can be:
 
 The optional focus area narrows emphasis (e.g. "cost section", "privacy obligations").
 
+# Examples
+
+Reference `examples/photo-suppression-v2.md` when uncertain about findings format or severity labeling.
+
+Read only lines 1–65: the Comment Summary table and the first complete finding (Comment 1) show the required structure — summary table, then Finding/Evidence/Action per comment. Do not read further.
+
 # Workflow
 
 ## 1. Resolve the target document

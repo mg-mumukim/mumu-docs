@@ -8,6 +8,12 @@ description: Research a topic and write a report to `work/<topic>`. Use only whe
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
+# Examples
+
+Reference `examples/agent-skill-taxonomy.md` when uncertain about how to apply the Conclusion → Key Findings → Evidence hierarchy.
+
+Read only lines 1–45: the Sources block, Changes section, and Conclusion section show the required opening structure and how much detail belongs in the Conclusion. Do not read the Key Findings or Evidence sections.
+
 # Workflow
 
 ## 1. Frame the problem

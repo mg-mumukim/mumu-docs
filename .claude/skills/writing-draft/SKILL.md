@@ -12,6 +12,12 @@ The argument can be:
 - A topic to start a new draft (e.g. `/writing-draft privacy-by-design`)
 - An existing filename in `work/<topic>` to revise (e.g. `/writing-draft privacy-by-design-v1.md add executive summary`)
 
+# Examples
+
+Reference `examples/llm-cost-estimation.md` when uncertain about expected structure or depth for a new v1 draft.
+
+Read only the first 40 lines: the TL;DR table and opening section establish the document shape (summary table → numbered sections → inline citations). Do not read further.
+
 # Workflow
 
 ## 1. Analyze the request
