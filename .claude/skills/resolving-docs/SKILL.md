@@ -1,6 +1,6 @@
 ---
-name: resolve-docs
-description: Find existing documents and source material in `note/` and `work/`, or resolve where to create new ones. Called by write-draft and write-report.
+name: resolving-docs
+description: Find existing documents and source material in `note/` and `work/`, or resolve where to create new ones. Called by writing-draft and writing-report.
 ---
 
 The key words MUST, MUST NOT, and SHOULD in this document are to be interpreted as described in RFC 2119.

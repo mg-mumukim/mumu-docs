@@ -1,10 +1,10 @@
 ---
-name: write-report
+name: writing-report
 description: Research a topic and write a report to `work/<topic>`. Use only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research.
 ---
 
 # Usage
-/write-report <topic> <optional question>
+/writing-report <topic> <optional question>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
@@ -47,7 +47,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 
 ## 5. Write the report
 
-Use **resolve-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the output postfix from the report plan (e.g. `-report`, `-benchmark`).
+Use **resolving-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the output postfix from the report plan (e.g. `-report`, `-benchmark`).
 
 ### Document structure
 

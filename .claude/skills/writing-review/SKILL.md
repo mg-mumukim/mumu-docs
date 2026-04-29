@@ -1,15 +1,15 @@
 ---
-name: write-review
+name: writing-review
 description: Evaluate an existing document against its stated purpose and produce structured findings. Use when asked to review, audit, or assess whether a document meets its goal — not when drafting new content. Triggers on "review", "리뷰", "검토", "assess", or "이 문서가 목적을 달성하는지" type requests.
 ---
 
 # Usage
-/write-review <document reference> [focus area]
+/writing-review <document reference> [focus area]
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
 The document reference can be:
-- A Google Docs URL (use the download-gdocs skill if not already downloaded)
+- A Google Docs URL (use the downloading-gdocs skill if not already downloaded)
 - A path or filename in `note/source/`
 
 The optional focus area narrows emphasis (e.g. "cost section", "privacy obligations").
@@ -18,7 +18,7 @@ The optional focus area narrows emphasis (e.g. "cost section", "privacy obligati
 
 ## 1. Resolve the target document
 
-- If the reference is a Google Docs URL not already in `note/source/`, use the **download-gdocs** skill first.
+- If the reference is a Google Docs URL not already in `note/source/`, use the **downloading-gdocs** skill first.
 - Otherwise, find the file in `note/source/` and read it in full.
 - Extract from the document:
   - **Stated purpose** — verbatim quote from "About this document", "Purpose", or equivalent. If absent, infer from document type and flag it as a finding.
@@ -61,7 +61,7 @@ Read the document as a critic: is the substance correct and clearly expressed?
 
 ## 4. Write the output
 
-Save to `work/<topic>/YYYY-MM-DD-<topic-slug>-review-v1.md` (use **resolve-docs** for naming).
+Save to `work/<topic>/YYYY-MM-DD-<topic-slug>-review-v1.md` (use **resolving-docs** for naming).
 
 Each finding MUST state:
 - **Finding** — one sentence starting with what is missing or wrong (not what is present).

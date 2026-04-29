@@ -1,16 +1,16 @@
 ---
-name: write-draft
+name: writing-draft
 description: Draft or revise a document from `note/` sources into `work/<topic>`. Use when asked to write, draft, or summarize a deliverable document.
 ---
 
 # Usage
-/write-draft <topic or filename> <optional instruction>
+/writing-draft <topic or filename> <optional instruction>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
 The argument can be:
-- A topic to start a new draft (e.g. `/write-draft privacy-by-design`)
-- An existing filename in `work/<topic>` to revise (e.g. `/write-draft privacy-by-design-v1.md add executive summary`)
+- A topic to start a new draft (e.g. `/writing-draft privacy-by-design`)
+- An existing filename in `work/<topic>` to revise (e.g. `/writing-draft privacy-by-design-v1.md add executive summary`)
 
 # Workflow
 
@@ -40,7 +40,7 @@ In all subsequent steps, MUST apply **directives** literally and use **goal** to
 
 ## 3. Write the new version
 
-Use **resolve-docs** for project directory, file naming, and version creation.
+Use **resolving-docs** for project directory, file naming, and version creation.
 
 ### Structure
 - If source material provides a heading hierarchy, MUST follow it. MUST NOT invent new sections or reorder unless a **directive** overrides it.
