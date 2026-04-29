@@ -4,6 +4,22 @@ These rules apply when writing or revising any file under `work/`.
 
 The key words MUST, MUST NOT, and SHOULD in this document are to be interpreted as described in RFC 2119.
 
+## File Naming
+
+Files in `work/` MUST follow the pattern `yyyy-MM-dd-<slug>-<type>-v<N>.md`.
+
+Valid `<type>` values:
+
+| Type | Postfix | Description |
+|------|---------|-------------|
+| Report | `-report` | Research findings structured as Conclusion → Findings → Evidence |
+| Review | `-review` | Structured findings against a document's stated purpose |
+| Guide | `-guide` | Step-by-step operational instructions |
+| Proposal | `-proposal` | Design proposal with problem, solution, and tradeoffs |
+| Handoff | `-handoff` | Session state snapshot for cross-session continuity |
+
+Handoff exception: the date in a handoff filename reflects the session date it was written, and MUST be updated with each new version. All other types MUST preserve the original creation date across revisions.
+
 ## Integrity
 
 - **No modification**: MUST NOT modify files in `note/`. MUST NOT modify existing version files in `work/`.

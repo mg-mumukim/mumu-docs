@@ -2,9 +2,21 @@
 
 Active working documents organized by project. The latest version is the canonical final document.
 
-Structure: `work/<project>/yyyy-MM-dd-<topic>-v<N>.md`
+Structure: `work/<project>/yyyy-MM-dd-<slug>-<type>-v<N>.md`
 
-Example: `work/photo-review-llm-cost-estimation/2026-04-10-photo-review-llm-cost-estimation-v1.md`
+Example: `work/photo-review-cost-estimation/2026-04-10-llm-cost-estimation-report-v1.md`
+
+## Document Types
+
+| Type | Postfix | Description |
+|------|---------|-------------|
+| Report | `-report` | Research findings structured as Conclusion → Findings → Evidence |
+| Review | `-review` | Structured findings against a document's stated purpose |
+| Guide | `-guide` | Step-by-step operational instructions |
+| Proposal | `-proposal` | Design proposal with problem, solution, and tradeoffs |
+| Handoff | `-handoff` | Session state snapshot for cross-session continuity |
+
+**Handoff versioning exception**: the date in a handoff filename reflects when it was written (the session date), and changes with each new version. All other types preserve the original creation date across revisions.
 
 ## Ownership
 
