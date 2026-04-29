@@ -10,7 +10,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 
 # Examples
 
-When uncertain about how to apply the Conclusion → Key Findings → Evidence hierarchy, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
+Before Step 5 (Write the report), if uncertain about how to structure the sources block, changes log, Conclusion density, or the Conclusion → Key Findings → Evidence hierarchy, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
 
 # Workflow
 

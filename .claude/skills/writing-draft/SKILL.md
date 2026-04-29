@@ -14,7 +14,7 @@ The argument can be:
 
 # Examples
 
-When uncertain about expected structure or depth for a new v1 draft, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
+Before Step 3 (Write the new version), if uncertain about expected structure or depth for a new v1 draft, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
 
 # Workflow
 
