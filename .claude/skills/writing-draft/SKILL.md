@@ -14,9 +14,7 @@ The argument can be:
 
 # Examples
 
-Reference `examples/llm-cost-estimation.md` when uncertain about expected structure or depth for a new v1 draft.
-
-Read only the first 40 lines: the TL;DR table and opening section establish the document shape (summary table → numbered sections → inline citations). Do not read further.
+When uncertain about expected structure or depth for a new v1 draft, glob `examples/` in this skill's directory and read one file. Stop reading after the first numbered section — the TL;DR table and that section are enough to establish the document shape (summary table → numbered sections → inline citations).
 
 # Workflow
 

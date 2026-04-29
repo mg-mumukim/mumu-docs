@@ -10,9 +10,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 
 # Examples
 
-Reference `examples/agent-skill-taxonomy.md` when uncertain about how to apply the Conclusion → Key Findings → Evidence hierarchy.
-
-Read only lines 1–45: the Sources block, Changes section, and Conclusion section show the required opening structure and how much detail belongs in the Conclusion. Do not read the Key Findings or Evidence sections.
+When uncertain about how to apply the Conclusion → Key Findings → Evidence hierarchy, glob `examples/` in this skill's directory and read one file. Stop reading at the end of the `## Conclusion` section — the Sources block and Conclusion are enough to show the required opening structure and how much detail belongs there. Do not read the Key Findings or Evidence sections.
 
 # Workflow
 

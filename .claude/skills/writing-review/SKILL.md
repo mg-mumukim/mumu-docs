@@ -16,9 +16,7 @@ The optional focus area narrows emphasis (e.g. "cost section", "privacy obligati
 
 # Examples
 
-Reference `examples/photo-suppression-v2.md` when uncertain about findings format or severity labeling.
-
-Read only lines 1–65: the Comment Summary table and the first complete finding (Comment 1) show the required structure — summary table, then Finding/Evidence/Action per comment. Do not read further.
+When uncertain about findings format or severity labeling, glob `examples/` in this skill's directory and read one file. Stop reading after the first complete finding — the summary table and that one finding are enough to show the required structure (summary table → Finding/Why It Matters/What Needs to Change per comment). Do not read further.
 
 # Workflow
 
