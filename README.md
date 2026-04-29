@@ -30,5 +30,7 @@ Claude creates new version files. Human reviews each version and leaves feedback
 
 | Skill | Description |
 |-------|-------------|
-| `/write-draft` | Draft or revise a deliverable document from `note/` sources into `work/<topic>`. |
-| `/write-report` | Research a topic and write a report to `work/<topic>`. Requires plan approval. |
+| `/writing-draft` | Draft or revise a deliverable document from `note/` sources into `work/<topic>`. |
+| `/writing-report` | Research a topic and write a report to `work/<topic>`. Requires plan approval. |
+| `/writing-review` | Evaluate an existing document against its stated purpose and produce structured findings. |
+| `/importing-gdocs` | Download a Google Doc as Markdown and save it as a source note under `note/source/`. |
