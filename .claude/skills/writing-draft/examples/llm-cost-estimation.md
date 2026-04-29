@@ -1,3 +1,8 @@
+<!--
+Cost estimation draft: shows a TL;DR summary table followed by numbered technical sections with inline data tables.
+Read the TL;DR section only to calibrate document shape.
+-->
+
 # Photo Review — LLM + GPU Cost Estimation
 
 > **Sources**:

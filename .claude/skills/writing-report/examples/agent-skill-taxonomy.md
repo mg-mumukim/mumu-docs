@@ -1,3 +1,8 @@
+<!--
+Taxonomy research report: shows the sources preamble, changes log, and Conclusion → Key Findings → Evidence hierarchy.
+Read through the Conclusion section only to see the required opening structure and how much detail belongs there.
+-->
+
 # Agent Skill Taxonomy: Structure, Types, and Components
 
 Sources:

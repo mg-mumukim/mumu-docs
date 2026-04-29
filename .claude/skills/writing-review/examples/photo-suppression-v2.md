@@ -1,3 +1,8 @@
+<!--
+Experiment design review: shows a severity summary table followed by findings with Issue / Why It Matters / What Needs to Change structure.
+Read the summary table and first complete finding only.
+-->
+
 > Sources:
 > - note/source/2026-04-22-photo-suppression-v2-data-collection-experiment-gdocs.md
 > - https://docs.google.com/document/d/1C7rteifFoWqU-qwCaBH7322S2zX3fcqB5B6ou-C6M0E/edit?usp=drivesdk

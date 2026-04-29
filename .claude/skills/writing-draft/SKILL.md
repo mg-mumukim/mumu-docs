@@ -14,7 +14,7 @@ The argument can be:
 
 # Examples
 
-When uncertain about expected structure or depth for a new v1 draft, glob `examples/` in this skill's directory and read one file. Stop reading after the first numbered section — the TL;DR table and that section are enough to establish the document shape (summary table → numbered sections → inline citations).
+When uncertain about expected structure or depth for a new v1 draft, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
 
 # Workflow
 

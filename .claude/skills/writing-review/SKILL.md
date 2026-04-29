@@ -16,7 +16,7 @@ The optional focus area narrows emphasis (e.g. "cost section", "privacy obligati
 
 # Examples
 
-When uncertain about findings format or severity labeling, glob `examples/` in this skill's directory and read one file. Stop reading after the first complete finding — the summary table and that one finding are enough to show the required structure (summary table → Finding/Why It Matters/What Needs to Change per comment). Do not read further.
+When uncertain about findings format or severity labeling, glob `examples/` in this skill's directory. Read the filenames and pick the most relevant one by topic or format. Then read its header — it states what the example demonstrates and how much to read.
 
 # Workflow
 
