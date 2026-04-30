@@ -21,11 +21,14 @@ org   : internal | external
 **`WorkItem`** — stateful unit of work
 ```
 title
-owner     : Person
-status    : NotStarted | InProgress | Done | Blocked | Skipped | Deferred
-blockedBy : WorkItem[]   // upstream dependencies that must complete before this can start
-events    : Event[]
+owner      : Person
+status     : NotStarted | InProgress | Done | Blocked | Skipped | Deferred
+blockedBy  : WorkItem[]   // hard: cannot start/complete until these are Done
+riskFactor : string?      // soft: can proceed but quality or scope may be affected; not a hard block
+events     : Event[]
 ```
+
+`blockedBy` is only set when explicitly stated in a source or confirmed by the user. Temporal proximity alone (two items with the same target date) does not constitute a hard dependency. If a relationship is inferred but not confirmed, record it in `riskFactor` and surface it as a Stage 3 question.
 
 **`Decision`** — directional agreement, reversible
 ```
@@ -76,6 +79,14 @@ confidence : confirmed | inferred | conflicted
 | `MilestoneSet` | A concrete date commitment was established or updated |
 | `DependencyAdded` | A `blockedBy` relationship was established between two WorkItems |
 | `DependencyResolved` | A blocking WorkItem completed, unblocking the dependent item |
+
+## Artifact Handoff
+
+When a substream delivers an artifact (e.g., a KB, dataset, or design doc) to a mainstream, the substream's ownership of that artifact ends. Any subsequent decisions about how to use or adapt the artifact belong to the consuming mainstream — they are not the substream's `blockedBy`. The substream WorkItem is `Done` from this point.
+
+## Scope Alignment
+
+A `blockedBy` relationship is only meaningful when both WorkItems target the same delivery scope (e.g., both in the MVP release). A research WorkItem targeting post-MVP outcomes does not create an operational dependency on MVP delivery WorkItems in the same period — they run on separate tracks. Do not model cross-scope relationships as `blockedBy`; note them as context in the research WorkItem's description.
 
 | Event.confidence | Meaning |
 |---|---|

@@ -118,6 +118,8 @@ After each answer:
 
 **Exit condition:** No `conflicted` events remain, and all `Unresolved` decisions are either resolved or explicitly acknowledged as ongoing. If the user passes on a question, mark that item unresolvable and carry it to Step 6 as a flag.
 
+**Dependency confirmation:** When a `blockedBy` relationship between WorkItems is inferred (e.g., from temporal proximity or context) rather than explicitly stated in a source, classify it as `confidence = inferred` and ask the user before writing it as a hard block. If unconfirmed, record it in `riskFactor` instead and surface it in the output as `- risk: [item] — [potential impact]`.
+
 <HARD-GATE> Do not begin writing until Stage 3 is complete or the user has explicitly passed on all remaining questions. </HARD-GATE>
 
 ### Signal triage
@@ -150,13 +152,13 @@ Use **resolving-docs** for file naming and version creation.
 - Summarize related items as a sentence rather than enumerating each as a separate bullet when they share a category
 
 - MUST NOT reference workspace file paths in the body
-- MUST follow date format from writing-convention.md: single date = `MM-DD` (e.g., `04-28`); date range = `MM-DD ~ MM-DD` (e.g., `04-08 ~ 04-18`); include year only when cross-year or ambiguous.
+- MUST follow the date and notation format rules in writing-convention.md (date format, arrow usage).
 - MUST NOT include Jira ticket numbers in the main bullet text
 - Link source documents inline when an item references specific numbers (latency, cost, counts) or an external doc: `[short label](URL)` immediately after the item title or in the sub-bullet containing the number. Do not link every item — only when the reader would need the source to verify or act.
 - For each **Reportable** WorkItem (from signal triage): state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
 - State the conclusion. For Done items where the reason changes what a reader should do next, add a one-line rationale in a sub-bullet. Do not add rationale for routine completions.
 - When a section has `SkippedEvent` or `DeferredEvent` items, render them in a `**Skipped**` section between Done and In Progress: `[ ] item title — one-line reason`. No strikethrough.
-- For To Do items on the critical path or blocked by another WorkItem, add a sub-bullet: `- blocked by: [item]` or `- note: [downstream impact]`. Only surface dependencies where the reader needs to act or where a delay would surprise them.
+- For To Do items with a confirmed hard dependency, add a sub-bullet: `- blocked by: [item]`. For unconfirmed or soft dependencies, use: `- risk: [item] — [potential impact]`. Only surface dependencies where the reader needs to act or where a delay would surprise them. Do not write `blocked by` for relationships inferred from source material unless confirmed by the user.
 - Open decisions appear in two subsections at the bottom of each section: **Discussion (internal)** for items the team is actively deliberating with no external blocker; **Open decisions (external input needed)** for items waiting on another team, PM, or counterpart. Both use `[ ]` checkboxes.
 
 **Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
