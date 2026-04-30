@@ -75,6 +75,8 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 - MUST NOT use a structure that follows the order of investigation (searched A, then found B, then checked C). The document is organized by what the reader needs, not by how the research was done.
 
 ## 6. Report to the user
+- Write a new handoff version (today's date, incremented version):
+  - If complete: set `Status: completed`. Future sessions that load this handoff will know the research is done.
+  - If incomplete: set `Status: in-progress`; add Decisions, Traps, Open Work, and New Session Prompt sections.
 - Summarize what was found and what remains unverified.
 - List any gaps or questions that could not be answered.
-- If work is incomplete or will continue in a new session, write a new handoff version (today's date, incremented version) with Decisions, Traps, Open Work, and New Session Prompt sections added.

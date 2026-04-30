@@ -32,10 +32,16 @@ If the subject is a single person, skip this step.
 
 ## 3. Collect all sources
 
-Before running Stage 1, search `work/` for an existing handoff file for this project (`*-<project-slug>-handoff-*.md`) using **resolving-docs**. If found, load:
-- **Stage 1 anchors** — skip anchor re-discovery; use loaded values directly
-- **Unresolved items** — carry forward into Stage 3
-- **Coverage time range** — focus Stage 2 on events since last coverage end date
+Before running Stage 1, search `work/` for an existing handoff file for this project (`*-<project-slug>-handoff-*.md`) using **resolving-docs**.
+
+If found, present a summary of its Coverage, Stage 1 Anchors, and Unresolved Items, then ask the user: **reuse as-is**, **revise**, or **start fresh**.
+
+<HARD-GATE> Do not begin Stage 1 until the user responds. </HARD-GATE>
+
+Based on the user's choice:
+- **Reuse**: load Stage 1 anchors, unresolved items, and coverage time range directly; skip Stage 1
+- **Revise**: write a new handoff version first; proceed with full Stage 1
+- **Start fresh**: ignore the existing handoff; proceed with full Stage 1
 
 If no handoff exists, proceed with full Stage 1.
 

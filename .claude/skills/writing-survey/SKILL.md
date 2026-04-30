@@ -90,6 +90,8 @@ Omit sections that have no entries (e.g., omit Academic if no papers were found)
 MUST NOT use a Conclusion → Findings → Evidence structure. The survey is organized by source, not by a single answer.
 
 ## 5. Report to the user
+- Write a new handoff version (today's date, incremented version):
+  - If complete: set `Status: completed`. Future sessions that load this handoff will know the survey is done.
+  - If incomplete: set `Status: in-progress`; add Open Work and New Session Prompt sections.
 - List which sources were covered and which were not found or inaccessible.
 - Name which option in the Design Space has the strongest prior-work signal.
-- If work is incomplete, write a new handoff version with Open Work and New Session Prompt sections.
