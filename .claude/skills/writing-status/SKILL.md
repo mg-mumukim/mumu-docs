@@ -134,6 +134,7 @@ Before writing, classify each WorkItem from the assembled event sequences:
 
 **Background** — omit from the update body:
 - Ongoing work with no new events this period
+- Team operations items (e.g., internal process docs, team norms, administrative tasks) — always Background regardless of status change; include in handoff WorkItems but never in the update document body
 
 If a section has Background items, collect them in a single "Continuing: [item1], [item2]" line at the section end — no status labels, no sub-bullets.
 
