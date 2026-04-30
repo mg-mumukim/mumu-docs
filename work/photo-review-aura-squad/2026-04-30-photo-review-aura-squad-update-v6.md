@@ -9,7 +9,7 @@
 - Slack #mgai-aura: Apr 16–30
 - Slack #ml-photo-review: Apr 16–30 (via Glean)
 - Google Calendar (mumu.kim@match.com): Apr 16–23
-- Notion: MGAI PM-TL Sync Apr 30, Eval 4 feedback & required update, Eval 5 Prompt 해부 세션
+- Notion: MGAI PM-TL Sync Apr 30, Eval 4 feedback & required update
 
 ---
 
@@ -25,8 +25,6 @@
 # AURA Squad — Photo Review Status Update (Apr 16 – Apr 30, 2026)
 
 **Lead:** Biggie Choi  |  **TL:** Mumu Kim
-
-참고: Claude 6일, Brandon 2일, Parker 1일, Biggie 1일 부재, Juniper 출장 (Apr 27–29 Workshop) — 진행 사항이 적었어야 하는데 디테일이 생각보다 많음.
 
 ---
 
