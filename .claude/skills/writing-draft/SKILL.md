@@ -1,6 +1,6 @@
 ---
 name: writing-draft
-description: Draft or revise a document from `note/` sources into `work/<topic>`. Use when asked to write, draft, or summarize a deliverable document.
+description: Draft or revise a document from `note/` sources into `work/<topic>`. Use when asked to write, draft, or summarize a deliverable document. Triggers on "작성해줘", "초안 써줘", "문서 써줘", "정리해서 작성", "draft 해줘", "써줘" and similar.
 ---
 
 # Usage
@@ -30,9 +30,8 @@ Before Step 3 (Write the new version), if uncertain about expected structure or 
 In all subsequent steps, MUST apply **directives** literally and use **goal** to guide judgment calls (structure, depth, emphasis, what to include or omit).
 
 ## 2. Gather material
-- Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
-- Glob `note/source/*<topic>*` — source material.
-- Glob `work/**/*<topic>*` — existing work output (probe reports, prior drafts).
+- Glob `note/**/*<topic>*` — source material across all scopes.
+- Glob `work/**/*<topic>*` — existing work output (reports, prior drafts, handoffs).
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 - Collect external sources (Slack, Jira, Glean, Notion) from three origins: specified by the user, needed by the request file, or **linked within any gathered source material**. Follow references found during reading.
 - If existing versions are found → **revision mode**:

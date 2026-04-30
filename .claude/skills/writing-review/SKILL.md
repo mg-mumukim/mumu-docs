@@ -1,6 +1,6 @@
 ---
 name: writing-review
-description: Evaluate an existing document against its stated purpose and produce structured findings. Use when asked to review, audit, or assess whether a document meets its goal — not when drafting new content. Triggers on "review", "리뷰", "검토", "assess", or "이 문서가 목적을 달성하는지" type requests.
+description: Evaluate an existing document against its stated purpose and produce structured findings. Use when asked to review, audit, or assess whether a document meets its goal — not when drafting new content. Triggers on "review", "리뷰", "검토", "assess", "이 문서가 목적을 달성하는지", "잘 됐는지 봐줘", "평가해줘", "피드백 줘" and similar.
 ---
 
 # Usage

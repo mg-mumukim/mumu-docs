@@ -1,6 +1,6 @@
 ---
 name: writing-report
-description: Research a topic and write a report to `work/<topic>`. Use only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research.
+description: Research a topic and write a report to `work/<topic>`. Use only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research. Triggers on "보고서 작성", "리포트 작성", "조사해서 정리", "분석 보고서", "report 써줘" and similar.
 ---
 
 # Usage
@@ -19,27 +19,31 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 - Identify what depends on the answer: what decision, action, or document is blocked until this is known?
 - From that, determine what a sufficient answer looks like — its form (a number, a comparison, a recommendation), its precision (order-of-magnitude vs exact), and its scope.
 
-## 2. Prepare a report plan
+## 2. Prepare a handoff
 
-### Check for an existing plan
-- Glob `note/task/*<topic>*report-plan*` to find a matching plan file.
-- If a plan exists, read it and present a summary to the user:
-  - Show the existing question, sources, scope, and output format.
-  - Ask the user whether to **reuse as-is**, **revise**, or **start fresh**.
-  - If the user chooses to revise, create a new plan file with today's date (do not modify the old file).
-  - If the user chooses to reuse, proceed directly to step 3.
+### Check for an existing handoff
+- Use **resolving-docs** to check `work/<topic>/` for an existing `*-handoff-v*.md`.
+- If a handoff exists, read it and present a summary to the user:
+  - Show Goal, Plan (Question, Sources, Scope, Type), and Open Work.
+  - Ask the user: **reuse as-is**, **revise**, or **start fresh**.
+  - Reuse: proceed to step 3.
+  - Revise: write a new handoff version (today's date, incremented version); present for review.
+  - Start fresh: proceed to "Write a new handoff" below.
 
-### Write a new plan (only when no existing plan is found, or user chose "start fresh")
-- Create `note/task/yyyy-MM-dd-<topic-slug>-report-plan.md`.
-- The plan MUST include:
-  - **Question**: The restated question from step 1.
-  - **Sources to check**: Which sources to search (Slack, Jira, Glean, Notion, Confluence, web, codebase, etc.) and why.
-  - **Scope**: What is in scope and what is explicitly out of scope.
-  - **Output**: Expected postfix for the report file (e.g. `-report`, `-benchmark`, `-comparison`).
-- Present the plan to the user and request review.
+### Write a new handoff (only when no existing handoff is found, or user chose "start fresh")
+- Use **resolving-docs** to resolve the project directory.
+- Create `yyyy-MM-dd-<slug>-handoff-v1.md` with:
+  - **Goal**: What the deliverable is for; intended audience; any constraints.
+  - **Plan**:
+    - **Question**: The restated question from step 1.
+    - **Sources**: Which sources to search (Slack, Jira, Glean, Notion, Confluence, web, codebase, etc.) and why.
+    - **Scope**: What is in scope and what is explicitly out of scope.
+    - **Type**: File type postfix for the output (e.g. `-report`, `-benchmark`, `-comparison`).
+    - Status: draft
+- Present the Plan section to the user and request review.
 
 ### Gate
-- MUST NOT proceed to research until the user approves (new or existing plan).
+- MUST NOT proceed to research until the user approves (Status: approved).
 
 ## 3. Search
 - After user approval, search the sources listed in the plan.
@@ -51,7 +55,7 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 
 ## 5. Write the report
 
-Use **resolving-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the output postfix from the report plan (e.g. `-report`, `-benchmark`).
+Use **resolving-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the Type postfix from the handoff Plan (e.g. `-report`, `-benchmark`).
 
 ### Document structure
 
@@ -67,7 +71,8 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 ## 6. Report to the user
 - Summarize what was found and what remains unverified.
 - List any gaps or questions that could not be answered.
+- If work is incomplete or will continue in a new session, write a new handoff version (today's date, incremented version) with Decisions, Traps, Open Work, and New Session Prompt sections added.
 
 # Rules
-- MUST NOT proceed to research without user approval of the report plan.
+- MUST NOT proceed to research without user approval of the handoff Plan section.
 - MUST NOT duplicate existing research in `note/source/` or `work/`.
