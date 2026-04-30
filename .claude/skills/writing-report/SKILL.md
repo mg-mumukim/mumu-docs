@@ -25,7 +25,7 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
   - Show Goal, Plan (Question, Sources, Scope, Type), and Open Work.
   - Ask the user: **reuse as-is**, **revise**, or **start fresh**.
   - Reuse: proceed to step 3.
-  - Revise: write a new handoff version (today's date, incremented version); present for review.
+  - Revise: write a new handoff version (today's date, incremented version) in `work/<topic>/`; present for review.
   - Start fresh: proceed to "Write a new handoff" below.
 
 ### Write a new handoff (only when no existing handoff is found, or user chose "start fresh")

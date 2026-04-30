@@ -109,6 +109,22 @@ After each answer:
 
 <HARD-GATE> Do not begin writing until Stage 3 is complete or the user has explicitly passed on all remaining questions. </HARD-GATE>
 
+### Signal triage
+
+Before writing, classify each WorkItem from the assembled event sequences:
+
+**Reportable** — include in the update body:
+- Status changed this period (any `StatusChanged` event)
+- New blocker raised or resolved (`Blocked` / `Unblocked` event)
+- Key decision made or superseded this period (`DecisionMade` / `DecisionSuperseded` event)
+
+**Background** — omit from the update body:
+- Ongoing work with no new events this period
+
+If a section has Background items, collect them in a single "Continuing: [item1], [item2]" line at the section end — no status labels, no sub-bullets.
+
+**Cross-cutting deduplication**: If a single event involves PoCs from multiple sections, assign it to exactly one section (the section where the primary decision-maker or originating action sits). Omit from all other sections.
+
 ## 4. Write the update document
 
 Use **resolving-docs** for file naming and version creation.
@@ -126,7 +142,7 @@ Use **resolving-docs** for file naming and version creation.
 In both cases:
 - MUST NOT reference workspace file paths in the body
 - MUST NOT include Jira ticket numbers in the main bullet text
-- For each WorkItem: state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
+- For each **Reportable** WorkItem (from signal triage): state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
 - State conclusions only — do not list what was investigated
 
 **Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
