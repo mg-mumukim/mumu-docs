@@ -10,6 +10,7 @@ id    (Slack handle / Jira username / GitHub login)
 name
 role  : Lead | TL | PM | MLE | MLSE | Staff-SWE | Designer | Advisor | Counterpart
 org   : internal | external
+source : prior_handoff | source_doc | inferred_from_context
 ```
 
 `role` guidance:
@@ -17,6 +18,11 @@ org   : internal | external
 - `TL` — tech lead; advises on architecture and engineering direction
 - `Counterpart` — person from an external team who is the primary contact for a dependency; not an owner of any WorkItem in this project
 - `org = external` applies to anyone outside the squad (different team, different company)
+
+`source` guidance:
+- `prior_handoff` — role and org taken verbatim from the prior handoff People table; treat as `confirmed`
+- `source_doc` — role or org explicitly stated in a source document (meeting note, Jira, Slack); treat as `confirmed`
+- `inferred_from_context` — role or org deduced from session context (e.g., Git user, document author, file creator) with no corroborating source; treat as `inferred`. MUST surface in Stage 3 for confirmation before writing. The project `Lead` MUST NOT be assigned via session context alone — always read from prior handoff or confirmed source.
 
 **`WorkItem`** — stateful unit of work
 ```
@@ -148,7 +154,9 @@ A `blockedBy` relationship is only meaningful when both WorkItems target the sam
 
 | Source signal | Entity / Event |
 |---|---|
-| "X is the lead", "lead: X" | `Person.role = Lead` |
-| "TL: X", "tech lead: X" | `Person.role = TL` |
-| "X is our counterpart at Y", "Tinder PM: X" | `Person.role = Counterpart`, `org = external` |
-| GCal event attendees list | `Person` entities — highest-quality source for name, email, org |
+| "X is the lead", "lead: X" | `Person.role = Lead`, `source = source_doc` |
+| "TL: X", "tech lead: X" | `Person.role = TL`, `source = source_doc` |
+| "X is our counterpart at Y", "Tinder PM: X" | `Person.role = Counterpart`, `org = external`, `source = source_doc` |
+| GCal event attendees list | `Person` entities — highest-quality source for name, email, org; `source = source_doc` |
+| Prior handoff People table | All fields verbatim; `source = prior_handoff` — do not re-derive from other signals |
+| Git user / document author / session context alone | `Person.source = inferred_from_context` — do not assign `Person.role = Lead` from this signal alone; MUST surface in Stage 3 for confirmation |

@@ -50,7 +50,7 @@ If found, present a summary of its Coverage, Stage 1 Anchors, and Unresolved Ite
 <HARD-GATE> Do not begin Stage 1 until the user responds. </HARD-GATE>
 
 Based on the user's choice:
-- **Reuse**: load Stage 1 anchors, unresolved items, and coverage time range directly; skip Stage 1
+- **Reuse**: load Stage 1 anchors, unresolved items, and coverage time range directly; skip Stage 1. Also load the People table verbatim from the prior handoff — do not re-derive roles or org labels from sources.
 - **Revise**: write a new handoff version first; proceed with full Stage 1
 - **Start fresh**: ignore the existing handoff; proceed with full Stage 1
 
@@ -67,6 +67,7 @@ If no handoff exists, proceed with full Stage 1.
 | GitHub | Relevant repo(s) | Search by project name within org |
 | Notion | Relevant space or page title | Keyword search by project name |
 | Google Calendar | Subject's email address | Check `list_calendars()` output |
+| PM spec + counterpart pages | Doc URLs owned by Counterpart-role persons (PM's spec notes, external team's tracking page) | Search Slack threads for links shared by Counterpart-role persons within the time range |
 
 <HARD-GATE> Do not begin Stage 2 until all anchors are confirmed or marked unavailable. </HARD-GATE>
 
@@ -126,6 +127,8 @@ After each answer:
 - **Missing `Decision.rationale`**: a Decision has no rationale in any source → ask the user directly; some decisions are only explained by the people involved, not the documents
 - **Silent completion**: a WorkItem that was `InProgress` in the prior handoff has no new events this period → ask if it is still in progress or was completed without announcement
 - **Scope ambiguity**: a WorkItem's delivery scope (MVP vs post-MVP) is not explicit in sources → ask which target release it belongs to; do not infer from stream placement alone
+- **People table drift (reuse path only)**: after Stage 2 collection, diff every Person's `role` and `org` against the prior handoff's People table. Any Person whose role or org changed — including sub-org detail (e.g., "Tinder ML" → "Tinder") — MUST be surfaced as a Stage 3 question before writing. Do not write a corrected role without user confirmation.
+- **Person.source = `inferred_from_context`**: if any Person's role was derived from session context (e.g., Git user, document author) rather than a source document or the prior handoff, surface it as a Stage 3 question. The project Lead in particular MUST be confirmed against the prior handoff — never inferred from who is running the session.
 
 <HARD-GATE> Do not begin writing until Stage 3 is complete or the user has explicitly passed on all remaining questions. </HARD-GATE>
 
@@ -142,6 +145,8 @@ Before writing, classify each WorkItem from the assembled event sequences:
 **Background** — omit from the update body:
 - Ongoing work with no new events this period
 - Team operations items (e.g., internal process docs, team norms, administrative tasks) — always Background regardless of status change; include in handoff WorkItems but never in the update document body
+
+If a Background item directly unblocked a Reportable item this period, it may appear as a one-line sub-bullet under that Reportable item — never as a standalone entry.
 
 If a section has Background items, collect them in a single "Continuing: [item1], [item2]" line at the section end — no status labels, no sub-bullets.
 
@@ -187,9 +192,13 @@ The handoff file MUST contain:
 | GitHub | org/repo(s) |
 | Notion | space or page title |
 
-**Domain Model Instance** — all WorkItems and Decisions as of end of Stage 3:
-- Each WorkItem: title, owner, current status, key recent events
-- Each Decision: statement, by, current status
+**Domain Model Instance** — all WorkItems and Decisions as of end of Stage 3, split into two tiers:
+
+*Active WorkItems* (status = In Progress / To Do / Blocked / Unresolved): title, owner, status, blockedBy if confirmed, riskFactor if any, key recent events.
+
+*Completed WorkItems* (status = Done or Skipped this session): one line per item — title, owner, completion date, key outcome. **Never prune Completed WIs mid-project.** Carry them forward into every future handoff version until the project closes. A start-fresh run MUST load Completed WIs from the prior handoff and preserve them verbatim.
+
+- Each Decision: statement, by, status, rationale (required unless the rationale is obvious from the statement alone)
 
 **Milestones** — concrete date commitments collected during Stage 2; each entry: description, date, status (Planned / Confirmed / Slipped / Met), owner.
 
