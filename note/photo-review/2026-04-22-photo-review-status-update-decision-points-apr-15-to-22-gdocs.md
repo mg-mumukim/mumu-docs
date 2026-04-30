@@ -20,7 +20,7 @@ Documenting key updates and decisions (made and upcoming) from the past week to 
 | **Examples** | Sitting in a cafe with a book (from your list) Travel photo with cultural or scenic context (from your list) At a coffee shop patio with a pet Having a picnic at the park At a farmer’s market holding produce or walking through stalls Walking a dog in a neighborhood or park | Running a marathon Mid cooking Playing guitar on stage Rock climbing, surfing, dancing |
 
 * **Repetitiveness definition**: Refined to better capture framing repetition in close-up selfies (as opposed to flagging almost literally identical photos)  
-  ![image1](images/279d16692f2e.png)
+  ![image1](../images/279d16692f2e.png)
 
 ## **Next evaluation plans**
 

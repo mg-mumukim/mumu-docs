@@ -1,10 +1,7 @@
 ---
 name: writing-report
-description: Research a topic and write a report to `work/<topic>`. Use only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research. Triggers on "보고서 작성", "리포트 작성", "조사해서 정리", "분석 보고서", "report 써줘" and similar.
+description: Researches a topic and writes a report to `work/<topic>`. Triggers only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research. Activates on "write a report", "research and write", "보고서 작성", "리포트 작성", "조사해서 정리", "분석 보고서", "report 써줘" and similar.
 ---
-
-# Usage
-/writing-report <topic> <optional question>
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
 
@@ -72,7 +69,3 @@ The document MUST follow a **Conclusion → Findings → Evidence** hierarchy:
 - Summarize what was found and what remains unverified.
 - List any gaps or questions that could not be answered.
 - If work is incomplete or will continue in a new session, write a new handoff version (today's date, incremented version) with Decisions, Traps, Open Work, and New Session Prompt sections added.
-
-# Rules
-- MUST NOT proceed to research without user approval of the handoff Plan section.
-- MUST NOT duplicate existing research in `note/source/` or `work/`.

@@ -11,13 +11,13 @@ The key words MUST, MUST NOT, and SHOULD in this document are to be interpreted 
 
 Given a `<topic>`:
 
-- Glob `note/task/*<topic>*` — request files, probe plans, WIP notes.
-- Glob `note/source/*<topic>*` — source material.
-- Glob `work/**/*<topic>*` — existing work output (reports, prior drafts).
+- Glob `note/**/*<topic>*` — source material across all scopes.
+- Glob `work/**/*<topic>*` — existing work output (reports, prior drafts, handoffs).
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 
 ## Resolve project directory
 
+### For work/ output files
 - If this is a revision of an existing file, use the same directory.
 - If the user provides a topic and a glob `work/**/*<topic>*` matches, use that directory.
 - If no match is found, create a new directory under `work/`.
@@ -25,6 +25,11 @@ Given a `<topic>`:
     - `<scope>`: the broader initiative or product area (e.g. `photo-review`, `mumu-profile`).
     - `<subject>`: the specific deliverable (e.g. `privacy-by-design`, `llm-cost-estimation`).
   - If the scope is ambiguous, ask the user before creating.
+
+### For note/ source files (when saving new source material)
+- Infer `<scope>` from the topic or filename (e.g. `photo-review-*` → `note/photo-review/`).
+- If `note/<scope>/` does not exist, create it.
+- If the scope is ambiguous, ask the user before creating.
 
 ## File naming
 

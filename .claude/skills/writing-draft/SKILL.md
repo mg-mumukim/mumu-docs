@@ -1,16 +1,9 @@
 ---
 name: writing-draft
-description: Draft or revise a document from `note/` sources into `work/<topic>`. Use when asked to write, draft, or summarize a deliverable document. Triggers on "작성해줘", "초안 써줘", "문서 써줘", "정리해서 작성", "draft 해줘", "써줘" and similar.
+description: Drafts or revises a document from `note/` sources into `work/<topic>`. Triggers when asked to write, draft, or summarize a deliverable document. Activates on "draft this", "write a document", "작성해줘", "초안 써줘", "문서 써줘", "정리해서 작성", "draft 해줘", "써줘" and similar. Does not trigger for research reports (use writing-report), document reviews (use writing-review), or status updates (use writing-status).
 ---
 
-# Usage
-/writing-draft <topic or filename> <optional instruction>
-
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
-
-The argument can be:
-- A topic to start a new draft (e.g. `/writing-draft privacy-by-design`)
-- An existing filename in `work/<topic>` to revise (e.g. `/writing-draft privacy-by-design-v1.md add executive summary`)
 
 # Examples
 

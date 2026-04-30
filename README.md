@@ -13,12 +13,11 @@ Source material collected in `note/` is turned into versioned working documents 
 
 ### `note/` — Source material
 
-File naming: `yyyy-MM-dd-[a-z0-9-].md`
+Structure: `note/<scope>/yyyy-MM-dd-<slug>.md`
 
-| Directory | Writer | Description |
-|-----------|--------|-------------|
-| `source/` | Human | Raw inputs: meeting notes, system context, plans, prompts, CSVs, discussion notes. |
-| `task/` | Human or Claude | Requests (`-request`), draft plans (`-draft-plan`), report plans (`-report-plan`). |
+Each `<scope>` directory corresponds to the `<scope>` prefix used in `work/<scope>-<subject>/`. Shared images live in `note/images/`.
+
+Writer: Human (meeting notes, memos, imports via `/importing-gdocs`)
 
 ### `work/` — Working documents
 

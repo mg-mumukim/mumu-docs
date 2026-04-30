@@ -26,7 +26,7 @@ Note that, we don't implement DLP rules from scratch. We fetch closed user accou
 | Any | D) Delete by data retention. | Set all data to expire after a certain period of time. (e.g., 90 days)  |
 
 Diagram:  
-![image1](images/1493e36ad77d.png)
+![image1](../images/1493e36ad77d.png)
 
 # Background Knowledge
 
@@ -83,7 +83,7 @@ For full details, refer to the internal DLP policy page. ([doc1](https://drive.g
 
 This method leverages Databricks/Delta Lake’s **row-level** deletion to purge specific records of users who have closed their accounts. By using standardized column names, automated cleanup jobs identify relevant rows and execute the VACUUM command to physically remove deleted data from the storage layer, ensuring no residual data remains.
 
-![image2](images/eb6df44034f5.png)
+![image2](../images/eb6df44034f5.png)
 
 Standard column names for deletion targets:
 
@@ -104,7 +104,7 @@ Unlike physical deletion (Method A), which removes entire records, pseudonymizat
 
 Once the mapping is permanently destroyed, the data is no longer subject to an individual's deletion request, enabling consistent evaluation sets and long-term model performance tracking. Engineers should pseudonymize all identifiers wherever possible; if pseudonymization is not feasible, the data must follow the physical deletion path (Method A).
 
-![image3](images/1e6ff78997af.png)
+![image3](../images/1e6ff78997af.png)
 
 ## Method C) Delete files by path convention
 
@@ -183,7 +183,7 @@ When Databricks identifies "closed data" and removes it from S3 while sending an
 Violations are automatically detected, triggering a Slack DM warning. Non-compliant files (e.g., file paths that do not contain `uid` or `imageid`) are deleted after a certain time (e.g., 72 hours).
 
 Example Slack workflow:  
-![image4](images/61ac38dd70cc.png)
+![image4](../images/61ac38dd70cc.png)
 
 # Infra Details
 
@@ -217,7 +217,7 @@ This document only covers infrastructure configuration from the perspective of t
 
 The following diagram illustrates how brand data flows into MG AI infrastructure and where the DLP system operates.
 
-![image5](images/0b98da249756.png)
+![image5](../images/0b98da249756.png)
 
 *MG AI Databricks is used for DLP orchestration (deletion pipeline, verification, bad path monitoring). MLE data access to Tinder raw data (S3, Delta tables) continues through existing credentials and channels.*
 
@@ -592,7 +592,7 @@ This document defines the **DLP (Data Lifecycle Policy)** standard for safely an
 
 # TO-BE Architecture
 
-![image6](images/d5f2b55beed4.png)
+![image6](../images/d5f2b55beed4.png)
 
 ---
 
@@ -754,7 +754,7 @@ When a pseudonymized user triggers DLP, the system automatically removes the ori
 
 #### Diagram
 
-![image7](images/cabd60826d6b.png)
+![image7](../images/cabd60826d6b.png)
 
 #### Example Code
 
@@ -872,7 +872,7 @@ Use multiple `uid` keys to indicate that multiple users are included.
 
 #### Diagram
 
-![image8](images/ce7d24c4b4b2.png)
+![image8](../images/ce7d24c4b4b2.png)
 
 #### Example Code (tentative)
 
