@@ -38,3 +38,4 @@ Handoff exception: the date in a handoff filename reflects the session date it w
 - **Plain tables**: MUST NOT use inline formatting (bold, italic, strikethrough, etc.) in table cells.
 - **Use K/M notation**: SHOULD write large numbers as 18M, 255.5K, $33K — not 18,000,000 or $33,000.
 - **Verify math with code**: When the document involves numerical calculations (cost estimation, traffic projection, unit conversion, etc.), MUST run the arithmetic in a Python script via Bash and use the output. Do not perform multi-step math in your head.
+- **Date format**: MUST write single dates as `MM-DD` within the current year (e.g., `04-28`); MUST write date ranges as `MM-DD ~ MM-DD` (e.g., `04-08 ~ 04-18`). MUST include the year (`yyyy-MM-DD`) only when the date spans a year boundary or when the year would otherwise be ambiguous.

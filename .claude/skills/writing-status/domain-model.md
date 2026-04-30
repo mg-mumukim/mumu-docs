@@ -21,9 +21,10 @@ org   : internal | external
 **`WorkItem`** — stateful unit of work
 ```
 title
-owner   : Person
-status  : NotStarted | InProgress | Done | Blocked | Skipped | Deferred
-events  : Event[]
+owner     : Person
+status    : NotStarted | InProgress | Done | Blocked | Skipped | Deferred
+blockedBy : WorkItem[]   // upstream dependencies that must complete before this can start
+events    : Event[]
 ```
 
 **`Decision`** — directional agreement, reversible
@@ -73,6 +74,8 @@ confidence : confirmed | inferred | conflicted
 | `SkippedEvent` | A planned item was deliberately skipped — reason should be captured |
 | `DeferredEvent` | A planned item was pushed to a later period — new target date if known |
 | `MilestoneSet` | A concrete date commitment was established or updated |
+| `DependencyAdded` | A `blockedBy` relationship was established between two WorkItems |
+| `DependencyResolved` | A blocking WorkItem completed, unblocking the dependent item |
 
 | Event.confidence | Meaning |
 |---|---|

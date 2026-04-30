@@ -142,15 +142,21 @@ If a section has Background items, collect them in a single "Continuing: [item1]
 Use **resolving-docs** for file naming and version creation.
 
 - Each section MUST open with a `>` blockquote: one sentence covering current state + key upcoming milestone or open decision. If a concrete timeline exists, include it in the quote: `> Timeline: Decision brief 4/29 → Mock server 5/6 → Release QA 6/1`.
+- When a mainstream section has 4+ Done items spanning distinct phases or tracks, group them under bold sub-headers (e.g., `**Done — Eval 4**`, `**Done — Prompt Factory**`). For 3 or fewer Done items, keep flat.
+- Top-level bullet = who, what, when — one line. Sub-bullets = rationale, key numbers, dependency notes. Do not mix summary and detail in the same line.
 - Lead with status (Done / In Progress / To Do / Blocked), not background
 - [x] / [ ] checkboxes for work items; `>` blockquotes for resolved Decisions
-- Nested bullets over tables; people as sub-items, not section headers; numbers as supporting detail
+- Nested bullets over tables; people as sub-items, not section headers; add `(Owner)` inline in item titles when ownership varies across items within the same section; numbers as supporting detail
 - Summarize related items as a sentence rather than enumerating each as a separate bullet when they share a category
 
 - MUST NOT reference workspace file paths in the body
+- MUST follow date format from writing-convention.md: single date = `MM-DD` (e.g., `04-28`); date range = `MM-DD ~ MM-DD` (e.g., `04-08 ~ 04-18`); include year only when cross-year or ambiguous.
 - MUST NOT include Jira ticket numbers in the main bullet text
+- Link source documents inline when an item references specific numbers (latency, cost, counts) or an external doc: `[short label](URL)` immediately after the item title or in the sub-bullet containing the number. Do not link every item — only when the reader would need the source to verify or act.
 - For each **Reportable** WorkItem (from signal triage): state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
 - State the conclusion. For Done items where the reason changes what a reader should do next, add a one-line rationale in a sub-bullet. Do not add rationale for routine completions.
+- When a section has `SkippedEvent` or `DeferredEvent` items, render them in a `**Skipped**` section between Done and In Progress: `[ ] item title — one-line reason`. No strikethrough.
+- For To Do items on the critical path or blocked by another WorkItem, add a sub-bullet: `- blocked by: [item]` or `- note: [downstream impact]`. Only surface dependencies where the reader needs to act or where a delay would surprise them.
 - Open decisions appear in two subsections at the bottom of each section: **Discussion (internal)** for items the team is actively deliberating with no external blocker; **Open decisions (external input needed)** for items waiting on another team, PM, or counterpart. Both use `[ ]` checkboxes.
 
 **Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
