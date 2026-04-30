@@ -45,7 +45,7 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 Use **resolving-docs** for project directory, file naming, and version creation (`<slug>-survey-vN.md`).
 
 Check `work/<topic>/` for existing `*-survey-v*.md`:
-- If found → **revision mode**: read the latest version and collect `[!NOTE]` feedback; determine next version number; apply feedback; include a **Changes from v{N-1}** section directly after the sources block.
+- If found → **revision mode**: read the latest version; determine next version number; include a **Changes from v{N-1}** section directly after the sources block.
 - If not found → start at v1.
 
 ### Document structure

@@ -28,7 +28,7 @@ In all subsequent steps, MUST apply **directives** literally and use **goal** to
 - If a request file (`*-request*`) is found, read it first — it is the primary input.
 - Collect external sources (Slack, Jira, Glean, Notion) from three origins: specified by the user, needed by the request file, or **linked within any gathered source material**. Follow references found during reading.
 - If existing versions are found → **revision mode**:
-  - Read the latest version and collect `[!NOTE]` feedback.
+  - Read the latest version.
   - Scan the **Changes from v{N-1}** sections of prior versions to understand the document's evolution.
   - Determine next version number.
 - If no existing versions → start at v1.
@@ -52,8 +52,7 @@ Use **resolving-docs** for project directory, file naming, and version creation.
 - SHOULD use source material from `note/` as the basis.
 - For revisions, apply inputs in this priority order:
   1. **Directives** from step 1 — the user's current explicit instructions (highest priority).
-  2. **`[!NOTE]`** feedback from the previous version.
-  3. **Change logs** from prior versions — do not revert previous intentional changes unless a directive or `[!NOTE]` explicitly overrides them.
+  2. **Change logs** from prior versions — do not revert previous intentional changes unless a directive explicitly overrides them.
 
 ## 4. Verify
 
@@ -63,12 +62,11 @@ Before finalizing the document, cross-check its contents against source material
 - **Dates and timelines**: verify each date or relative reference against the source. Do not paraphrase (e.g. do not write "last week" if the source says a specific date).
 - **Numbers and units**: confirm values and units are present in source. Flag any number that was derived or inferred rather than stated.
 - **Attributions**: if a claim is attributed to a person or team, confirm the attribution is present in source.
-- **Inferred specifics**: if a specific detail (e.g. a library, a threshold, a mechanism) is absent from source but was included based on plausibility, remove it or mark it as unverified with `[!NOTE]`.
+- **Inferred specifics**: if a specific detail (e.g. a library, a threshold, a mechanism) is absent from source but was included based on plausibility, remove it.
 
-If any item cannot be confirmed, either remove it or flag it explicitly in the document with `[!NOTE]: unverified — [reason]`.
+If any item cannot be confirmed, remove it and note it to the user in step 5.
 
 ## 5. Report to the user
 - Summarize what changed from the previous version (for revisions).
-- List which `[!NOTE]` items were addressed (for revisions).
 - Note any items that could not be addressed and why.
-- List any items flagged as unverified during step 4.
+- List any items removed as unverified during step 4.

@@ -59,7 +59,7 @@ Read the document as a critic: is the substance correct and clearly expressed?
 Use **resolving-docs** for project directory, file naming, and version creation.
 
 Check `work/<topic>/` for existing `*-review-v*.md`:
-- If found → **revision mode**: read the latest version and collect `[!NOTE]` feedback; determine next version number; apply feedback in the new version; include a **Changes from v{N-1}** section directly after the sources block.
+- If found → **revision mode**: read the latest version; determine next version number; include a **Changes from v{N-1}** section directly after the sources block.
 - If not found → start at v1.
 
 Each finding MUST state:

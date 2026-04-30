@@ -60,7 +60,7 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 Use **resolving-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the Type postfix from the handoff Plan (e.g. `-report`, `-benchmark`).
 
 Check `work/<topic>/` for existing report versions matching the Type postfix:
-- If found → **revision mode**: read the latest version and collect `[!NOTE]` feedback; determine next version number; apply feedback in the new version; include a **Changes from v{N-1}** section directly after the sources block.
+- If found → **revision mode**: read the latest version; determine next version number; include a **Changes from v{N-1}** section directly after the sources block.
 - If not found → start at v1.
 
 ### Document structure
