@@ -17,6 +17,7 @@ Valid `<type>` values:
 | Guide | `-guide` | Step-by-step operational instructions |
 | Proposal | `-proposal` | Design proposal with problem, solution, and tradeoffs |
 | Handoff | `-handoff` | Session state snapshot for cross-session continuity |
+| Update | `-update` | Periodic work status update structured around project WorkItems |
 
 Handoff exception: the date in a handoff filename reflects the session date it was written, and MUST be updated with each new version. All other types MUST preserve the original creation date across revisions.
 

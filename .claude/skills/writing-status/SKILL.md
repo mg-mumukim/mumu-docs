@@ -32,6 +32,13 @@ If the subject is a single person, skip this step.
 
 ## 3. Collect all sources
 
+Before running Stage 1, search `work/` for an existing handoff file for this project (`*-<project-slug>-handoff-*.md`) using **resolving-docs**. If found, load:
+- **Stage 1 anchors** — skip anchor re-discovery; use loaded values directly
+- **Unresolved items** — carry forward into Stage 3
+- **Coverage time range** — focus Stage 2 on events since last coverage end date
+
+If no handoff exists, proceed with full Stage 1.
+
 ### Stage 1: Identify anchors
 
 Run all anchor lookups concurrently.
@@ -42,18 +49,25 @@ Run all anchor lookups concurrently.
 | Jira | Project key | Search by project name in Jira |
 | GitHub | Relevant repo(s) | Search by project name within org |
 | Notion | Relevant space or page title | Keyword search by project name |
+| Google Calendar | Subject's email address | Check `list_calendars()` output |
 
 <HARD-GATE> Do not begin Stage 2 until all anchors are confirmed or marked unavailable. </HARD-GATE>
 
 ### Stage 2: Collect — breadth first, then follow links
 
-Using Stage 1 anchors, launch all source queries concurrently. Collect each source in chronological order.
+Before fetching, use **resolving-docs** to check `note/<project-scope>/` for existing source notes (`*-slack.md`, `*-jira.md`, `*-github.md`, `*-notion.md`, `*-gcal.md`). Read files already present; fetch only missing sources. Launch all missing-source queries concurrently. Collect each source in chronological order.
 
 **Source priority (most current → most structural):**
 1. **Slack** — project channel + subject's messages within time range. Read full threads; capture both the original statement and any later corrections or reversals.
 2. **Jira** — tickets where subject is assignee, updated within time range. Include changelog: status transitions, reassignments, reopens.
 3. **GitHub** — PRs authored by subject, merged or closed within time range. Include review iterations and revert commits.
 4. **Notion / Google Docs / meeting notes** — meeting notes within time range. Include later entries that amend or override earlier decisions.
+5. **Google Calendar** — call `list_events(calendarId=subject_email, startTime, endTime, orderBy=startTime)` for each subject. Collect:
+   - Meeting events: title, attendees with response status, description. Extract any linked doc/Jira/Notion URLs from description and add to the internal link follow queue.
+   - OOO and leave events: `eventType=outOfOffice` or events created by `hr.sys4@hpcnt.com` — record as periods of subject unavailability (`Blocked`).
+   - For team subjects, query all members concurrently.
+
+**Save source notes:** After fetching each source, save a local copy to `note/<project-scope>/` as `yyyy-MM-dd-<slug>-<source-type>.md` (e.g. `-slack.md`, `-jira.md`, `-github.md`, `-notion.md`, `-gcal.md`).
 
 **Follow internal links — one level deep:** If a Slack message links to a doc, a Jira ticket links to a PR, or a PR links to a spec, follow it. Only follow links from already-collected sources. Skip links outside the time range or to unrelated projects.
 
@@ -85,11 +99,11 @@ After each answer:
 2. Cross-check the updated sequence against all source data already in context — surface any new conflicts introduced by the answer.
 3. If new `conflicted` or `Unresolved` items surface, continue the loop.
 
-**Exit condition:** No `conflicted` events remain, and all `Unresolved` decisions are either resolved or explicitly acknowledged as ongoing. If the user passes on a question, mark that item unresolvable and carry it to Step 5 as a flag.
+**Exit condition:** No `conflicted` events remain, and all `Unresolved` decisions are either resolved or explicitly acknowledged as ongoing. If the user passes on a question, mark that item unresolvable and carry it to Step 6 as a flag.
 
 <HARD-GATE> Do not begin writing until Stage 3 is complete or the user has explicitly passed on all remaining questions. </HARD-GATE>
 
-## 4. Write the status document
+## 4. Write the update document
 
 Use **resolving-docs** for file naming and version creation.
 
@@ -109,8 +123,30 @@ In both cases:
 - For each WorkItem: state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
 - State conclusions only — do not list what was investigated
 
-**Version management:** Follow naming `yyyy-MM-dd-<slug>-status-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
+**Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
 
-## 5. Report to the user
+## 5. Save handoff
+
+Write or update the handoff file for this project using **resolving-docs**. Follow the handoff naming convention: `yyyy-MM-dd-<slug>-handoff-v<N>.md` with today's date. MUST NOT modify an existing handoff version — create a new version.
+
+The handoff file MUST contain:
+
+**Stage 1 Anchors**
+| Source | Anchor |
+|---|---|
+| Slack | channel name |
+| Jira | project key |
+| GitHub | org/repo(s) |
+| Notion | space or page title |
+
+**Domain Model Instance** — all WorkItems and Decisions as of end of Stage 3:
+- Each WorkItem: title, owner, current status, key recent events
+- Each Decision: statement, by, current status
+
+**Unresolved Items** — items the user passed on in Stage 3; carry into Stage 3 of the next session.
+
+**Coverage** — time range covered in this session: `[start] → [end]`
+
+## 6. Report to the user
 
 State what is in the document and what was not verifiable from sources. Flag any section based on user-provided context rather than a verified source.

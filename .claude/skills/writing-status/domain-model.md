@@ -60,3 +60,5 @@ confidence : confirmed | inferred | conflicted
 | Slack later correction or reversal | `DecisionSuperseded` |
 | Slack or Jira blocker mention | `Blocked` |
 | Slack or Jira blocker resolved | `Unblocked` |
+| Google Calendar OOO or leave event | `Blocked` (subject unavailable) |
+| Google Calendar event description link | follow link — may yield `DecisionMade` or meeting notes |

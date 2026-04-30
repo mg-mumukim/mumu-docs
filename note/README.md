@@ -22,3 +22,4 @@ Each `<scope>` directory corresponds to the `<scope>` prefix used in `work/<scop
 | `opaas` | OPaaS sunset |
 | `smartphoto-v4` | SmartPhoto v4 engineering |
 | `agent-skill` | Claude agent skill research and practice |
+| `reference` | Cross-cutting reference material not tied to a specific project scope (playbooks, skill guides, methodology documents) |
