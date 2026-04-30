@@ -13,8 +13,8 @@ Before Step 4 (Write the output), if uncertain about findings format or severity
 
 ## 1. Resolve the target document
 
-- If the reference is a Google Docs URL not already in `note/source/`, use the **downloading-gdocs** skill first.
-- Otherwise, find the file in `note/source/` and read it in full.
+- If the reference is a Google Docs URL not already in `note/<scope>/`, use the **downloading-gdocs** skill first.
+- Otherwise, find the file in `note/<scope>/` and read it in full.
 - Extract from the document:
   - **Stated purpose** — verbatim quote from "About this document", "Purpose", or equivalent. If absent, infer from document type and flag it as a finding.
   - **Intended audience** — who is this written for? Their information needs define the standard for Reader Satisfaction.
@@ -24,7 +24,7 @@ Before Step 4 (Write the output), if uncertain about findings format or severity
 
 Gather the minimum supporting material needed to verify the claims flagged in step 1.
 
-- Search `note/source/`, `note/task/`, and `work/` for documents that contain the referenced data.
+- Search `note/<scope>/` and `work/` for documents that contain the referenced data.
 - Read only what is directly relevant to the flagged claims. Do not gather broadly.
 - For each flagged claim: does the supporting material confirm, contradict, or leave the claim unverified? Record the result as a finding or confirm it is clean.
 
@@ -56,7 +56,11 @@ Read the document as a critic: is the substance correct and clearly expressed?
 
 ## 4. Write the output
 
-Save to `work/<topic>/YYYY-MM-DD-<topic-slug>-review-v1.md` (use **resolving-docs** for naming).
+Use **resolving-docs** for project directory, file naming, and version creation.
+
+Check `work/<topic>/` for existing `*-review-v*.md`:
+- If found → **revision mode**: read the latest version and collect `[!NOTE]` feedback; determine next version number; apply feedback in the new version; include a **Changes from v{N-1}** section directly after the sources block.
+- If not found → start at v1.
 
 Each finding MUST state:
 - **Finding** — one sentence starting with what is missing or wrong (not what is present).

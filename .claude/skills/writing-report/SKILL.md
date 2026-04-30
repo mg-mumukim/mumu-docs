@@ -43,8 +43,12 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 - MUST NOT proceed to research until the user approves (Status: approved).
 
 ## 3. Search
-- After user approval, search the sources listed in the plan.
-- Read existing files in `note/source/` and `work/` to avoid duplicating prior research.
+- List files currently in `note/<scope>/`. For each source listed in the plan, check whether a corresponding file already exists.
+  - If all sources are covered: read them directly and skip to Step 4.
+  - If partially covered: fetch only the missing sources, then proceed.
+  - If none are covered: fetch all sources listed in the plan.
+- For each fetched external document (Notion page, GDoc, Slack thread, etc.), save a local copy to `note/<scope>/` using the `yyyy-MM-dd-<slug>-<source-type>.md` naming convention (e.g., `-notion.md`, `-gdocs.md`, `-thread.md`).
+- Read existing files in `work/` to avoid duplicating prior written analysis.
 
 ## 4. Verify
 - Cross-check numbers, formulas, and claims against primary sources (code, docs, Slack threads).
@@ -53,6 +57,10 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 ## 5. Write the report
 
 Use **resolving-docs** for project directory, file naming, and version creation. The file's `<document-slug>` includes the Type postfix from the handoff Plan (e.g. `-report`, `-benchmark`).
+
+Check `work/<topic>/` for existing report versions matching the Type postfix:
+- If found → **revision mode**: read the latest version and collect `[!NOTE]` feedback; determine next version number; apply feedback in the new version; include a **Changes from v{N-1}** section directly after the sources block.
+- If not found → start at v1.
 
 ### Document structure
 
