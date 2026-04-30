@@ -33,7 +33,7 @@ Identify sections as follows:
 2. Name remaining output tracks as **Substream** (smaller, fewer members).
 3. If members exited mid-period, plan a brief "Exited this period" note at the bottom — not a standalone section.
 
-For each section, list: stream name | squad lead | one-line scope. Distinguish the squad-owned lead (PoC) from external counterparts; list counterparts separately in the header line, not as PoC.
+For each section, list: stream name | PoC | one-line scope. The project Lead (`Person.role = Lead`) is NOT listed as a stream PoC — stream PoC is whoever owns the deliverable for that stream. External counterparts (`Person.org = external`) are listed separately as "Tinder counterpart:" or similar, never as PoC. The document header must state **Lead:** [name] and **TL:** [name] — drawn from the People table in the handoff.
 
 Sections MUST be MECE at the top level and work items within each stream MUST be MECE.
 
@@ -172,6 +172,8 @@ The handoff file MUST contain:
 **Domain Model Instance** — all WorkItems and Decisions as of end of Stage 3:
 - Each WorkItem: title, owner, current status, key recent events
 - Each Decision: statement, by, current status
+
+**Milestones** — concrete date commitments collected during Stage 2; each entry: description, date, status (Planned / Confirmed / Slipped / Met), owner.
 
 **Unresolved Items** — items the user passed on in Stage 3; carry into Stage 3 of the next session.
 
