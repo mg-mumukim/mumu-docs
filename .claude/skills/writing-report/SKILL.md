@@ -46,9 +46,9 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 ## 3. Search
 - List files currently in `note/<scope>/`. For each source listed in the plan, check whether a corresponding file already exists.
   - If all sources are covered: read them directly and skip to Step 4.
-  - If partially covered: fetch only the missing sources, then proceed.
-  - If none are covered: fetch all sources listed in the plan.
-- For each fetched external document (Notion page, GDoc, Slack thread, etc.), save a local copy to `note/<scope>/` using the `yyyy-MM-dd-<slug>-<source-type>.md` naming convention (e.g., `-notion.md`, `-gdocs.md`, `-thread.md`).
+  - If partially covered: identify only the missing sources.
+  - If none are covered: all sources listed in the plan need fetching.
+- **Parallel fan-out (Agent tool):** Launch one subagent per missing source in a single message. Each subagent must: (1) fetch its assigned source (Notion page, GDoc, Slack thread, etc.), (2) save the result to `note/<scope>/yyyy-MM-dd-<slug>-<source-type>.md` (e.g., `-notion.md`, `-gdocs.md`, `-thread.md`), and (3) return a one-line summary of what was found, or note if the source was inaccessible. Wait for all subagents to complete before proceeding.
 - Read existing files in `work/` to avoid duplicating prior written analysis.
 
 ## 4. Verify

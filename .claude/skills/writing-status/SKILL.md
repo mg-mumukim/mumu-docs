@@ -1,6 +1,6 @@
 ---
 name: writing-status
-description: Researches work activity for a person or team on a specific project over a time period, then writes a coherent status summary to `work/<topic>`. Triggers when the user provides a subject (person or team name), a project scope, and a time range and asks for a status or activity summary. Activates on "[팀] [프로젝트] 진행 상황", "지난 [기간] [팀] 뭐 했는지 정리", "[person] status on [project]", "현황 보고", "진행 상황 정리", "weekly update", "주간 업데이트" and similar. Does not trigger for drafting proposals, writing research reports, or reviewing documents.
+description: Produces or revises a shared status update document — for team meetings, manager reports, or stakeholder briefings — covering what a person or team did on a project over a time period. Writes to `work/<topic>`. Activates on "[팀] [프로젝트] 현황 보고", "지난 [기간] [팀] 뭐 했는지 정리", "상황 정리해서 보고해줘", "다시 정리해줘", "섹션 재구성해줘", "[person] status on [project]", "현황 보고", "주간 업데이트", "weekly update", "restructure the update" and similar. Output is always meant for sharing with others. Does not trigger for: drafting proposals, writing research reports, reviewing documents, or personal reference notes.
 ---
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
@@ -14,19 +14,30 @@ Confirm before starting research. If any of the following are missing, ask once:
 - **Subject**: person name or team name
 - **Project / scope**: which project or workstream
 - **Time range**: start and end date (absolute)
-- **Output intent**: shared with others (team meeting, manager report) or personal reference
+- **Output audience**: team meeting, manager report, or stakeholder update — this skill is for shared output only
 
 ## 1. Establish the format
 
 If the user provided a reference document or URL, fetch it and extract: section structure, format (table vs bullets), detail level, and language. Use that as the output format.
 
-If no reference is provided, use the default format: nested bullets, status-first per item (Done / In Progress / To Do / Blocked), current state before next steps.
+If no reference is provided, use the default format: [x] / [ ] checkboxes for Done / In Progress / To Do / Blocked items; `>` blockquotes for resolved Decisions to visually distinguish them from work items; nested bullets for sub-items.
 
 No confirmation needed for format unless the user explicitly asks to verify it.
 
 ## 2. Propose section structure (team subjects only)
 
-If the subject is a team or multiple people, propose section names and their owners as a numbered list: section name, PoC, one-line scope. MUST get explicit user confirmation before beginning research.
+If the subject is a team or multiple people, propose work-stream-based sections — not role-based or person-based sections. A stream groups members who are tightly or loosely coupled toward a single primary deliverable.
+
+Identify sections as follows:
+1. Find the 2 streams with the highest member coupling and most work items — label these **Mainstream 1** and **Mainstream 2**.
+2. Name remaining output tracks as **Substream** (smaller, fewer members).
+3. If members exited mid-period, plan a brief "Exited this period" note at the bottom — not a standalone section.
+
+For each section, list: stream name | squad lead | one-line scope. Distinguish the squad-owned lead (PoC) from external counterparts; list counterparts separately in the header line, not as PoC.
+
+Sections MUST be MECE at the top level and work items within each stream MUST be MECE.
+
+MUST get explicit user confirmation before beginning research.
 
 If the subject is a single person, skip this step.
 
@@ -47,7 +58,7 @@ If no handoff exists, proceed with full Stage 1.
 
 ### Stage 1: Identify anchors
 
-Run all anchor lookups concurrently.
+**Parallel fan-out (Agent tool):** Launch one subagent per source in a single message. Each subagent finds its anchor and returns it, or marks it unavailable.
 
 | Source | Anchor to find | Fallback if unknown |
 |---|---|---|
@@ -61,17 +72,17 @@ Run all anchor lookups concurrently.
 
 ### Stage 2: Collect — breadth first, then follow links
 
-Before fetching, use **resolving-docs** to check `note/<project-scope>/` for existing source notes (`*-slack.md`, `*-jira.md`, `*-github.md`, `*-notion.md`, `*-gcal.md`). Read files already present; fetch only missing sources. Launch all missing-source queries concurrently. Collect each source in chronological order.
+Before fetching, use **resolving-docs** to check `note/<project-scope>/` for existing source notes (`*-slack.md`, `*-jira.md`, `*-github.md`, `*-notion.md`, `*-gcal.md`). Read files already present; fetch only missing sources. **Parallel fan-out (Agent tool):** Launch one subagent per missing source in a single message. Each subagent fetches its source, saves to `note/<project-scope>/`, and returns a one-line summary. Wait for all subagents to complete before proceeding. Collect each source in chronological order.
 
 **Source priority (most current → most structural):**
 1. **Slack** — project channel + subject's messages within time range. Read full threads; capture both the original statement and any later corrections or reversals.
-2. **Jira** — tickets where subject is assignee, updated within time range. Include changelog: status transitions, reassignments, reopens.
-3. **GitHub** — PRs authored by subject, merged or closed within time range. Include review iterations and revert commits.
-4. **Notion / Google Docs / meeting notes** — meeting notes within time range. Include later entries that amend or override earlier decisions.
+2. **Notion / Google Docs / meeting notes** — meeting notes within time range. Include later entries that amend or override earlier decisions. **Exception: meeting notes dated at or after the coverage end date (e.g., a PM-TL sync on the final day of coverage) supersede all other sources including the handoff — collect these first and let them override earlier data for recent decisions.**
+3. **Jira** — tickets where subject is assignee, updated within time range. Include changelog: status transitions, reassignments, reopens.
+4. **GitHub** — PRs authored by subject, merged or closed within time range. Include review iterations and revert commits.
 5. **Google Calendar** — call `list_events(calendarId=subject_email, startTime, endTime, orderBy=startTime)` for each subject. Collect:
    - Meeting events: title, attendees with response status, description. Extract any linked doc/Jira/Notion URLs from description and add to the internal link follow queue.
    - OOO and leave events: `eventType=outOfOffice` or events created by `hr.sys4@hpcnt.com` — record as periods of subject unavailability (`Blocked`).
-   - For team subjects, query all members concurrently.
+   - For team subjects, launch one subagent per member in a single message (Agent tool).
 
 **Save source notes:** After fetching each source, save a local copy to `note/<project-scope>/` as `yyyy-MM-dd-<slug>-<source-type>.md` (e.g. `-slack.md`, `-jira.md`, `-github.md`, `-notion.md`, `-gcal.md`).
 
@@ -117,6 +128,7 @@ Before writing, classify each WorkItem from the assembled event sequences:
 - Status changed this period (any `StatusChanged` event)
 - New blocker raised or resolved (`Blocked` / `Unblocked` event)
 - Key decision made or superseded this period (`DecisionMade` / `DecisionSuperseded` event)
+- Decision to skip, defer, or cancel a previously planned item (`SkippedEvent` / `DeferredEvent`) — a non-action decision is as Reportable as completing work
 
 **Background** — omit from the update body:
 - Ongoing work with no new events this period
@@ -129,21 +141,17 @@ If a section has Background items, collect them in a single "Continuing: [item1]
 
 Use **resolving-docs** for file naming and version creation.
 
-**If output intent is shared (team meeting, manager report):**
+- Each section MUST open with a `>` blockquote: one sentence covering current state + key upcoming milestone or open decision. If a concrete timeline exists, include it in the quote: `> Timeline: Decision brief 4/29 → Mock server 5/6 → Release QA 6/1`.
 - Lead with status (Done / In Progress / To Do / Blocked), not background
-- Nested bullets over tables unless the reference format uses tables
-- People as sub-items, not section headers
-- Numbers as supporting detail in nested bullets
+- [x] / [ ] checkboxes for work items; `>` blockquotes for resolved Decisions
+- Nested bullets over tables; people as sub-items, not section headers; numbers as supporting detail
+- Summarize related items as a sentence rather than enumerating each as a separate bullet when they share a category
 
-**If output intent is personal reference:**
-- Narrative prose over status labels
-- Chronological or thematic ordering, not status grouping
-
-In both cases:
 - MUST NOT reference workspace file paths in the body
 - MUST NOT include Jira ticket numbers in the main bullet text
 - For each **Reportable** WorkItem (from signal triage): state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
-- State conclusions only — do not list what was investigated
+- State the conclusion. For Done items where the reason changes what a reader should do next, add a one-line rationale in a sub-bullet. Do not add rationale for routine completions.
+- Open decisions appear in two subsections at the bottom of each section: **Discussion (internal)** for items the team is actively deliberating with no external blocker; **Open decisions (external input needed)** for items waiting on another team, PM, or counterpart. Both use `[ ]` checkboxes.
 
 **Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
 

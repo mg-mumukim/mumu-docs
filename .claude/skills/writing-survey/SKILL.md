@@ -35,9 +35,9 @@ The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpr
 ## 3. Search
 - List files currently in `note/<scope>/`. For each source listed in the plan, check whether a corresponding file already exists.
   - If all sources are covered: read them directly and skip to Step 4.
-  - If partially covered: fetch only missing sources, then proceed.
-  - If none are covered: fetch all sources listed in the plan.
-- For each fetched external document, save a local copy to `note/<scope>/` using `yyyy-MM-dd-<slug>-<source-type>.md` (e.g., `-paper.md`, `-blog.md`, `-notion.md`).
+  - If partially covered: identify only the missing sources.
+  - If none are covered: all sources listed in the plan need fetching.
+- **Parallel fan-out (Agent tool):** Launch one subagent per missing source in a single message. Each subagent must: (1) fetch its assigned source (industry blog, arXiv paper, internal doc, Confluence page, etc.), (2) save the result to `note/<scope>/yyyy-MM-dd-<slug>-<source-type>.md` (e.g., `-paper.md`, `-blog.md`, `-notion.md`), and (3) return a one-line summary of what was found, or note if the source was inaccessible. Wait for all subagents to complete before proceeding.
 - Read existing files in `work/` to avoid duplicating prior written analysis.
 
 ## 4. Write the survey
