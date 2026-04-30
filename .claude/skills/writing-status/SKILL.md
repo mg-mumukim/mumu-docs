@@ -20,7 +20,7 @@ Confirm before starting research. If any of the following are missing, ask once:
 
 If the user provided a reference document or URL, fetch it and extract: section structure, format (table vs bullets), detail level, and language. Use that as the output format.
 
-If no reference is provided, use the default format: [x] / [ ] checkboxes for Done / In Progress / To Do / Blocked items; `>` blockquotes for resolved Decisions to visually distinguish them from work items; nested bullets for sub-items.
+If no reference is provided, use the default format: `-` bullets for work items; `>` blockquotes for resolved Decisions; nested bullets for sub-items.
 
 No confirmation needed for format unless the user explicitly asks to verify it.
 
@@ -29,13 +29,13 @@ No confirmation needed for format unless the user explicitly asks to verify it.
 If the subject is a team or multiple people, propose work-stream-based sections — not role-based or person-based sections. A stream groups members who are tightly or loosely coupled toward a single primary deliverable.
 
 Identify sections as follows:
-1. Find the 2 streams with the highest member coupling and most work items — label these **Mainstream 1** and **Mainstream 2**.
+1. Find the primary streams by member coupling and work item count — typically 2, but may be 1 or 3. Label them **Mainstream 1**, **Mainstream 2**, etc.
 2. Name remaining output tracks as **Substream** (smaller, fewer members).
 3. If members exited mid-period, plan a brief "Exited this period" note at the bottom — not a standalone section.
 
-For each section, list: stream name | PoC | one-line scope. The project Lead (`Person.role = Lead`) is NOT listed as a stream PoC — stream PoC is whoever owns the deliverable for that stream. External counterparts (`Person.org = external`) are listed separately as "Tinder counterpart:" or similar, never as PoC. The document header must state **Lead:** [name] and **TL:** [name] — drawn from the People table in the handoff.
+For each section, list: stream name | PoC | one-line scope. The project Lead (`Person.role = Lead`) is NOT listed as a stream PoC — stream PoC is whoever owns the deliverable for that stream. External counterparts (`Person.org = external`) are listed separately as "Tinder counterpart:" or similar, never as PoC. If the handoff People table includes a `Lead` or `Advisor` role, the document header SHOULD state **Lead:** [name] and **Advisor:** [name].
 
-Sections MUST be MECE at the top level and work items within each stream MUST be MECE.
+Sections SHOULD be MECE at the top level. For cross-cutting items that span multiple streams, apply the deduplication rule in Signal triage rather than forcing an artificial MECE boundary.
 
 MUST get explicit user confirmation before beginning research.
 
@@ -81,7 +81,7 @@ Before fetching, use **resolving-docs** to check `note/<project-scope>/` for exi
 4. **GitHub** — PRs authored by subject, merged or closed within time range. Include review iterations and revert commits.
 5. **Google Calendar** — call `list_events(calendarId=subject_email, startTime, endTime, orderBy=startTime)` for each subject. Collect:
    - Meeting events: title, attendees with response status, description. Extract any linked doc/Jira/Notion URLs from description and add to the internal link follow queue.
-   - OOO and leave events: `eventType=outOfOffice` or events created by `hr.sys4@hpcnt.com` — record as periods of subject unavailability (`Blocked`).
+   - OOO and leave events: `eventType=outOfOffice` or events created by the org's HR system account — record as periods of subject unavailability (`Blocked`). Also check Notion/Slack text for absence mentions (see domain-model.md Source Mapping).
    - For team subjects, launch one subagent per member in a single message (Agent tool).
 
 **Save source notes:** After fetching each source, save a local copy to `note/<project-scope>/` as `yyyy-MM-dd-<slug>-<source-type>.md` (e.g. `-slack.md`, `-jira.md`, `-github.md`, `-notion.md`, `-gcal.md`).
@@ -118,7 +118,14 @@ After each answer:
 
 **Exit condition:** No `conflicted` events remain, and all `Unresolved` decisions are either resolved or explicitly acknowledged as ongoing. If the user passes on a question, mark that item unresolvable and carry it to Step 6 as a flag.
 
-**Dependency confirmation:** When a `blockedBy` relationship between WorkItems is inferred (e.g., from temporal proximity or context) rather than explicitly stated in a source, classify it as `confidence = inferred` and ask the user before writing it as a hard block. If unconfirmed, record it in `riskFactor` instead and surface it in the output as `- risk: [item] — [potential impact]`.
+**Confirmation checklist** — in addition to `conflicted` events and `Unresolved` decisions, scan for each of the following and surface as Stage 3 questions if found:
+
+- **Inferred `blockedBy`**: relationship derived from temporal proximity or context, not explicitly stated in a source → confirm before writing as hard block; if unconfirmed, write as `riskFactor`
+- **Inferred `iteratesOn`**: set from naming pattern only (e.g., Eval 5 follows Eval 4) — `confidence = inferred`; surface via the standard inferred-event scan above; no source explicitly states this relationship
+- **Missing `Event.reason`**: a `SkippedEvent`, `DeferredEvent`, or `Blocked` event has no `reason` → ask why before writing
+- **Missing `Decision.rationale`**: a Decision has no rationale in any source → ask the user directly; some decisions are only explained by the people involved, not the documents
+- **Silent completion**: a WorkItem that was `InProgress` in the prior handoff has no new events this period → ask if it is still in progress or was completed without announcement
+- **Scope ambiguity**: a WorkItem's delivery scope (MVP vs post-MVP) is not explicit in sources → ask which target release it belongs to; do not infer from stream placement alone
 
 <HARD-GATE> Do not begin writing until Stage 3 is complete or the user has explicitly passed on all remaining questions. </HARD-GATE>
 
@@ -145,24 +152,26 @@ If a section has Background items, collect them in a single "Continuing: [item1]
 Use **resolving-docs** for file naming and version creation.
 
 - Each section MUST open with a `>` blockquote: one sentence covering current state + key upcoming milestone or open decision. If a concrete timeline exists, include it in the quote: `> Timeline: Decision brief 4/29 → Mock server 5/6 → Release QA 6/1`.
-- When a mainstream section has 4+ Done items spanning distinct phases or tracks, group them under bold sub-headers (e.g., `**Done — Eval 4**`, `**Done — Prompt Factory**`). For 3 or fewer Done items, keep flat.
+- When a mainstream section's Done items span 2+ distinct phases or tracks (regardless of count), use a single `**Done**` header with nested bold sub-phase labels (e.g., `**Done**` → `- **Eval 4**` → `    - item`). If all Done items belong to the same phase or track, list them flat under `**Done**`.
 - Top-level bullet = who, what, when — one line. Sub-bullets = rationale, key numbers, dependency notes. Do not mix summary and detail in the same line.
 - Lead with status (Done / In Progress / To Do / Blocked), not background
-- [x] / [ ] checkboxes for work items; `>` blockquotes for resolved Decisions
+- `-` bullets for all work items; `>` blockquotes for resolved Decisions
 - Nested bullets over tables; people as sub-items, not section headers; add `(Owner)` inline in item titles when ownership varies across items within the same section; numbers as supporting detail
 - Summarize related items as a sentence rather than enumerating each as a separate bullet when they share a category
 
 - MUST NOT reference workspace file paths in the body
 - MUST follow the date and notation format rules in writing-convention.md (date format, arrow usage).
-- MUST NOT include Jira ticket numbers in the main bullet text
+- SHOULD NOT include Jira ticket numbers in the main bullet text; use them in sub-bullets or omit unless the ticket is the primary identifier for that item
 - Link source documents inline when an item references specific numbers (latency, cost, counts) or an external doc: `[short label](URL)` immediately after the item title or in the sub-bullet containing the number. Do not link every item — only when the reader would need the source to verify or act.
 - For each **Reportable** WorkItem (from signal triage): state the current status (derived from its event sequence) and the key events that explain how it got there — decisions made, blockers raised/resolved, corrections issued
 - State the conclusion. For Done items where the reason changes what a reader should do next, add a one-line rationale in a sub-bullet. Do not add rationale for routine completions.
-- When a section has `SkippedEvent` or `DeferredEvent` items, render them in a `**Skipped**` section between Done and In Progress: `[ ] item title — one-line reason`. No strikethrough.
+- When a section has `SkippedEvent` or `DeferredEvent` items, render them in a `**Skipped**` section between Done and In Progress: `- item title — one-line reason`.
 - For To Do items with a confirmed hard dependency, add a sub-bullet: `- blocked by: [item]`. For unconfirmed or soft dependencies, use: `- risk: [item] — [potential impact]`. Only surface dependencies where the reader needs to act or where a delay would surprise them. Do not write `blocked by` for relationships inferred from source material unless confirmed by the user.
-- Open decisions appear in two subsections at the bottom of each section: **Discussion (internal)** for items the team is actively deliberating with no external blocker; **Open decisions (external input needed)** for items waiting on another team, PM, or counterpart. Both use `[ ]` checkboxes.
+- Open decisions appear in two subsections at the bottom of each section: **Discussion (internal)** for items the team is actively deliberating with no external blocker; **Open decisions (external input needed)** for items waiting on another team, PM, or counterpart. Use `[ ]` here (not `-`) to visually distinguish action-required items from narrative bullets above.
 
 **Version management:** Follow naming `yyyy-MM-dd-<slug>-update-v<N>.md`. For v2+, include **Changes from v{N-1}** immediately after the source memo. MUST NOT modify an existing version file.
+
+**When sharing** (posting to Slack, copying to clipboard, or forwarding to others): MUST exclude the source memo and the Changes from v{N-1} section. Share body content only — starting from the document title heading.
 
 ## 5. Save handoff
 

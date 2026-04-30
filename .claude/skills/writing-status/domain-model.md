@@ -25,6 +25,9 @@ owner      : Person
 status     : NotStarted | InProgress | Done | Blocked | Skipped | Deferred
 blockedBy  : WorkItem[]   // hard: cannot start/complete until these are Done
 riskFactor : string?      // soft: can proceed but quality or scope may be affected; not a hard block
+iteratesOn : WorkItem?    // this item is a direct successor/iteration of another (e.g., Eval 5 iteratesOn Eval 4)
+                          // confidence is almost always inferred — set from naming pattern (e.g., Eval N follows Eval N-1)
+                          // no source explicitly states this relationship; always surface as a Stage 3 confirmation
 events     : Event[]
 ```
 
@@ -34,6 +37,7 @@ events     : Event[]
 ```
 statement
 by           : Person
+rationale    : string?    // why this direction was chosen; key constraints or tradeoffs that drove it
 status       : Adopted | Rejected | Superseded | Unresolved
 supersededBy : Decision?
 ```
@@ -63,7 +67,8 @@ All state changes are events. A WorkItem's current status is the result of apply
 type       : StatusChanged | DecisionMade | DecisionSuperseded | Blocked | Unblocked
            | SkippedEvent | DeferredEvent | MilestoneSet
 by         : Person
-at         : timestamp
+at         : timestamp    // granularity varies by source: Slack/GCal = exact datetime; Notion/GDoc = date only
+reason     : string?      // why this event occurred; required for SkippedEvent, DeferredEvent, Blocked
 confidence : confirmed | inferred | conflicted
 ```
 
@@ -96,19 +101,54 @@ A `blockedBy` relationship is only meaningful when both WorkItems target the sam
 
 ## Source Mapping
 
+**Status and state changes**
+
 | Source signal | Entity / Event |
 |---|---|
-| Jira status transition, reopen | `StatusChanged` |
+| Jira status transition, reopen | `StatusChanged` — treat as low-confidence baseline; Slack/Notion may reflect a more recent state |
 | GitHub PR merged or closed | `StatusChanged(→Done)` |
 | Slack "we decided to..." | `DecisionMade` |
 | Slack later correction or reversal | `DecisionSuperseded` |
-| Slack or Jira blocker mention | `Blocked` |
+
+**Note:** Jira `issuelinks` is frequently empty in practice. Do NOT rely on Jira for `DependencyAdded` / `blockedBy`. Derive dependencies from meeting notes, Slack, and Stage 3 user confirmation only.
+
+**Blockers and availability**
+
+| Source signal | Entity / Event |
+|---|---|
+| Slack or Jira explicit blocker mention | `Blocked` |
 | Slack or Jira blocker resolved | `Unblocked` |
-| "Skipping X", "we're not doing X this week" | `SkippedEvent` on that WorkItem |
-| "Deferring X to next week / next sprint" | `DeferredEvent` on that WorkItem |
+| Google Calendar `eventType=outOfOffice` or leave event | `Blocked` (subject unavailable) |
+| Notion/Slack text: "휴가", "부재", "vacation", "OOO", "returns [date]", "[name] is out" | `Blocked` (confidence = confirmed if date given, inferred otherwise) — GCal OOO may not be visible cross-person |
+
+**Skip, defer, and milestone**
+
+| Source signal | Entity / Event |
+|---|---|
+| "Skipping X", "X를 skip하기로", "we're not doing X this week" | `SkippedEvent` — `reason` is required; if absent, surface in Stage 3 |
+| "Deferring X", "X를 다음 주로", "next sprint" | `DeferredEvent` — `reason` is required; if absent, surface in Stage 3 |
 | "Timeline: A → B → C" or "target: date" | `MilestoneSet` per date anchor |
-| Google Calendar OOO or leave event | `Blocked` (subject unavailable) |
-| Google Calendar event description link | follow link — may yield `DecisionMade` or meeting notes |
+
+**Rationale and alternatives**
+
+| Source signal | Entity / Event |
+|---|---|
+| English: "because...", "due to...", "in order to...", "so that..." | `Event.reason` or `Decision.rationale` |
+| Korean: "때문에", "로 인해", "을 위해", "이유", "맥락", "목적" | `Event.reason` or `Decision.rationale` |
+| GDoc with comparison sections (e.g., "Option 1 vs Option 2", trade-off tables) | `Decision.alternatives` — GDoc is the primary source for alternatives; collect before meeting notes |
+| Decision with no rationale in any source | Surface in Stage 3: ask the user directly |
+
+**Iteration and sequence**
+
+| Source signal | Entity / Event |
+|---|---|
+| WorkItem title follows naming pattern (e.g., "Eval 5" after "Eval 4") | `WorkItem.iteratesOn` (confidence = inferred) — always surface in Stage 3 for confirmation |
+
+**People and roles**
+
+| Source signal | Entity / Event |
+|---|---|
 | "X is the lead", "lead: X" | `Person.role = Lead` |
 | "TL: X", "tech lead: X" | `Person.role = TL` |
 | "X is our counterpart at Y", "Tinder PM: X" | `Person.role = Counterpart`, `org = external` |
+| GCal event attendees list | `Person` entities — highest-quality source for name, email, org |

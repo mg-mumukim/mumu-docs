@@ -33,10 +33,6 @@ When posting in Korean:
 - MUST use Slack link syntax: `<URL|display text>` — not Markdown `[text](url)`.
 - MUST include source links on items that reference specific numbers (latency, cost, sample counts) or external documents. Do not link every item.
 
-## Content scope
-
-- MUST exclude source memos and change logs (`Changes from vN`) when posting from a `work/` document. Post body content only.
-- Team operations items (internal process docs, team norms, administrative tasks) MUST be excluded from Slack status updates, even if they appear in the underlying handoff.
 - `>` blockquotes SHOULD be used for section-level headlines and resolved decisions, matching the `work/` document convention.
 
 ## Long content
