@@ -1,6 +1,6 @@
 ---
 name: writing-report
-description: Researches a topic and writes a report to `work/<topic>`. Triggers only when the user explicitly asks for a written report, document, or deliverable — not for quick questions or conversational research. Activates on "write a report", "research and write", "보고서 작성", "리포트 작성", "조사해서 정리", "분석 보고서", "report 써줘" and similar.
+description: Documents findings from a specific analysis, experiment, or investigation to support a decision. Triggers when the user has a specific question with a specific answer and needs it written up as a deliverable. Activates on "write a report", "결과 보고서", "보고서 작성", "분석 보고서", "report 써줘", "실험 결과 정리", "evaluation report" and similar. Does NOT trigger when exploring prior art, options, or landscape before committing to an approach — use writing-survey for that.
 ---
 
 The key words MUST, MUST NOT, SHOULD, and MAY in this document are to be interpreted as described in RFC 2119.
@@ -13,6 +13,7 @@ Before Step 5 (Write the report), if uncertain about how to structure the source
 
 ## 1. Frame the problem
 - Restate the user's question as a specific unknown: what fact, number, or judgment is missing?
+- If the question is "what exists?" or "what options are there?" rather than a specific answerable unknown, stop and use **writing-survey** instead.
 - Identify what depends on the answer: what decision, action, or document is blocked until this is known?
 - From that, determine what a sufficient answer looks like — its form (a number, a comparison, a recommendation), its precision (order-of-magnitude vs exact), and its scope.
 
